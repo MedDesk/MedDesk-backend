@@ -37,3 +37,4 @@ public class MedicalRecord extends BaseEntity {
     @OneToOne(mappedBy = "medicalRecord")
     private Vital vital;
 }
+
