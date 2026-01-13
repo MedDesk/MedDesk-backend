@@ -18,3 +18,5 @@ public class MedicalRecordDtoRequest {
     private Long vitalId;
 
 }
+
+
