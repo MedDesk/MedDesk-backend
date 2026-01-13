@@ -28,7 +28,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final AppointmentReposiotry appointmentRepository;
     private final DoctorRepository doctorRepository;
     private final StaffRepository staffRepository;
-
+    private final VitalRepository vitalRepository;
 
     @Override
     public MedicalRecordDtoResponse create(MedicalRecordDtoRequest dto) {
@@ -60,11 +60,11 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         medicalRecord.setAppointment(appointment);
 
         // Set vital if provided (optional)
-//        if (dto.getVitalId() != null) {
-//            Vital vital = vitalRepository.findById(dto.getVitalId())
-//                    .orElseThrow(() -> new ResourceNotFoundException("Vitals not found"));
-//            medicalRecord.setVital(vital);
-//        }
+        if (dto.getVitalId() != null) {
+            Vital vital = vitalRepository.findById(dto.getVitalId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Vitals not found"));
+            medicalRecord.setVital(vital);
+        }
 
         return medicalRecordMapper.toDto(medicalRecordRepository.save(medicalRecord));
     }
