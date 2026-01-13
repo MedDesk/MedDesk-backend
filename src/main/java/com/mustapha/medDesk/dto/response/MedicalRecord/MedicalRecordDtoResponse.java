@@ -18,4 +18,6 @@ public class MedicalRecordDtoResponse {
     private Long appointmentId;
     private Long vitalId;
 
+
+
 }
