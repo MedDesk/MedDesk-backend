@@ -11,3 +11,5 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Lo
     Optional<MedicalRecord>findMedicalRecordByAppointment_Id(Long appointmentId);
      boolean existsByAppointmentId(Long id);
 }
+
+
