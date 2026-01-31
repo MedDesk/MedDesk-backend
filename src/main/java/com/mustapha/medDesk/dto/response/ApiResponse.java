@@ -1,8 +1,15 @@
 package com.mustapha.medDesk.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@Data
 public class ApiResponse<T> {
 
     private boolean success;
