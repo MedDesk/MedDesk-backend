@@ -16,7 +16,6 @@ public class ApiResponse<T> {
     private int status;
     private String path;
 
-    // constructors, getters, setters ...
 
     public static <T> ApiResponse<T> success(String message, T data) {
         ApiResponse<T> res = new ApiResponse<>();
