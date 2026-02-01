@@ -5,8 +5,8 @@ import com.mustapha.medDesk.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
-
 import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED) // inheritance strategy for each class it's related to parent class
