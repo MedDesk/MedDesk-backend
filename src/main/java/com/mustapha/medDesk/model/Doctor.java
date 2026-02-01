@@ -27,6 +27,7 @@ public class Doctor extends User{
 
     @Column(name = "emergency_contact", nullable = true)
     private String emergencyContact;
+
     // each doctor has a list of medicalRecords that he made
   // @OneToMany()
 //    private List<MedicalRecord> medicalRecords;
