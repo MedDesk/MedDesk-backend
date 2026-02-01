@@ -4,6 +4,7 @@ import com.mustapha.medDesk.enums.MaritalStatus;
 import com.mustapha.medDesk.enums.PatientType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -29,4 +30,7 @@ public class Patient extends User{
 
     @Column(name = "marital_status", nullable = true)
     private MaritalStatus maritalStatus;
+// each patient has a list of appointments
+//    @JoinColumn()
+//    private List<Appointment>appointmentList;
 }
