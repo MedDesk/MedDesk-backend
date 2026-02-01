@@ -54,5 +54,5 @@ public class User extends BaseEntity {
     private UserRole role = UserRole.OTHER; // default role
 
     @Column(nullable = false)
-    private int cabinetId = 1; // default cabinet for easest scaling  in the future
+    private int cabinetId = 1; // default cabinet for future scaling
 }
