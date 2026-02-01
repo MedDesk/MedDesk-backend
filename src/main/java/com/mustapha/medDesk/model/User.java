@@ -4,16 +4,17 @@ import com.mustapha.medDesk.enums.Gender;
 import com.mustapha.medDesk.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED) // inheritance strategy for each class it's related to parent class
 @Data
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User extends BaseEntity {
 
     @Column(nullable = false)
