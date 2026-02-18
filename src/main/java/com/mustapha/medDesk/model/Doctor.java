@@ -31,4 +31,6 @@ public class Doctor extends User{
     // each doctor has a list of medicalRecords that he made
   // @OneToMany()
 //    private List<MedicalRecord> medicalRecords;
+
+
 }

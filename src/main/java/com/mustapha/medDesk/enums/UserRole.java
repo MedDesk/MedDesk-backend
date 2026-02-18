@@ -2,13 +2,11 @@ package com.mustapha.medDesk.enums;
 
 public enum UserRole {
     ADMIN,
+    RECEPTIONIST,
     DOCTOR,
     PATIENT,
+    STAFF,
     OTHER,
-    RECEPTIONIST,
-    NURSE,
-    TECH,
-    PHARMACIST,
-    LAB_TECH
+
 
 }

@@ -28,9 +28,13 @@ public class Appointment extends BaseEntity{
     @Column(name = "appointment_status", nullable = false )
     private AppointmentStatus appointmentStatus = AppointmentStatus.SCHEDULED;// default
 
-    // each patient has 1 or many appointments
+    // Patient
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
+    // Appointment
+    @OneToOne(mappedBy = "appointment")
+    private MedicalRecord medicalRecord;
 
 }
