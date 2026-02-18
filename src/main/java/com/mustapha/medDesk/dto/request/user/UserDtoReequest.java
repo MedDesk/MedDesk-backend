@@ -9,7 +9,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class userDtoReequest {
+public class UserDtoReequest {
         @NotBlank(message = "first name is required")
         private String firstName;
         @NotBlank(message = "last name is required")
