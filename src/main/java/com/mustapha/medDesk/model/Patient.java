@@ -2,12 +2,11 @@ package com.mustapha.medDesk.model;
 
 import com.mustapha.medDesk.enums.MaritalStatus;
 import com.mustapha.medDesk.enums.PatientType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -29,4 +28,9 @@ public class Patient extends User{
 
     @Column(name = "marital_status", nullable = true)
     private MaritalStatus maritalStatus;
+
+
+    // each patient has a list of appointments
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
 }
