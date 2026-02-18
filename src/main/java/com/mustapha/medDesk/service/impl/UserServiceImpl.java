@@ -43,6 +43,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(savedUser);
         }
 
+
+// update partiell the user data
     @Override
     public UserDtoResponse update(Long id, UserUpdateRequest request) {
         if(id == 1) throw  new ValidationException("you cannot update the main admin");
