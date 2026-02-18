@@ -15,6 +15,8 @@ import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Data
@@ -62,16 +64,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-
+        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("user not found"));
+            this.userRepository.delete(user);
     }
 
     @Override
     public Page<UserDtoResponse> getALl(int page, int size) {
-        return null;
+
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findAll(pageable).map(
+                user-> userMapper.toDto(user)
+        );
     }
 
     @Override
     public UserDtoResponse getById(Long id) {
-        return null;
+        if(id ==1){
+            throw new ValidationException("you cannot remove the super admin");
+        }
+         User  user =userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(" user not found"));
+
+        return userMapper.toDto(user);
     }
 }
