@@ -1,0 +1,1 @@
+## we don't have to create admin table because we jsut gonna use the same user data but with diff role
