@@ -5,5 +5,6 @@ public enum PatientType {
     INPATIENT,
     EMERGENCY,
     REFERRAL,
-    OTHER
+    OTHER,
+    UNASSIGNED
 }
