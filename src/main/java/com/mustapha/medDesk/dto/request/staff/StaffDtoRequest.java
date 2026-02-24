@@ -36,7 +36,8 @@ public class StaffDtoRequest {
     @Nullable
     private String phone;
     private String profileImage;
-
+    @NotNull(message = "role is required")
+    private UserRole role;
     @NotNull(message = "Gender is required")
     private Gender gender;
     private LocalDate birthDate;
@@ -44,7 +45,7 @@ public class StaffDtoRequest {
     private String cin;
 
     // staff information
-    @NotBlank(message = "the specialist is required")
+    @NotNull(message = "the specialist is required")
     private StaffSpecialist specialist;
 
     @NotNull(message = "shiftPreference is required")
