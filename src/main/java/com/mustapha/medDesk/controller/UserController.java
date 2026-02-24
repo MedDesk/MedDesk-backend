@@ -24,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
 
+
     @PostMapping
     @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<UserDtoResponse>> createUser(
