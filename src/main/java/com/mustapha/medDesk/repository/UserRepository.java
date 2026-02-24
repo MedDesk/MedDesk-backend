@@ -1,9 +1,7 @@
 package com.mustapha.medDesk.repository;
 
-import com.mustapha.medDesk.dto.response.UserDtoResponse;
 import com.mustapha.medDesk.enums.UserRole;
 import com.mustapha.medDesk.model.User;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

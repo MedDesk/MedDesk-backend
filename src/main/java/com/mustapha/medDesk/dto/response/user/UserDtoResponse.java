@@ -1,4 +1,4 @@
-package com.mustapha.medDesk.dto.response;
+package com.mustapha.medDesk.dto.response.user;
 
 import com.mustapha.medDesk.enums.Gender;
 import com.mustapha.medDesk.enums.UserRole;

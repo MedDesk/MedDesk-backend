@@ -3,7 +3,7 @@ package com.mustapha.medDesk.controller;
 import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
-import com.mustapha.medDesk.dto.response.UserDtoResponse;
+import com.mustapha.medDesk.dto.response.user.UserDtoResponse;
 import com.mustapha.medDesk.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;

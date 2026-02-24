@@ -2,8 +2,7 @@ package com.mustapha.medDesk.mapper;
 
 import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
-import com.mustapha.medDesk.dto.response.ApiResponse;
-import com.mustapha.medDesk.dto.response.UserDtoResponse;
+import com.mustapha.medDesk.dto.response.user.UserDtoResponse;
 import com.mustapha.medDesk.model.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

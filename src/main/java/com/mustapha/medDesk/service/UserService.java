@@ -3,8 +3,7 @@ package com.mustapha.medDesk.service;
 
 import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
-import com.mustapha.medDesk.dto.response.ApiResponse;
-import com.mustapha.medDesk.dto.response.UserDtoResponse;
+import com.mustapha.medDesk.dto.response.user.UserDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

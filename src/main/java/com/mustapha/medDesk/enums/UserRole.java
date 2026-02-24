@@ -8,5 +8,4 @@ public enum UserRole {
     PATIENT,
     STAFF,
     OTHER,
-
 }

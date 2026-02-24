@@ -2,8 +2,7 @@ package com.mustapha.medDesk.service.impl;
 
 import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
-import com.mustapha.medDesk.dto.response.ApiResponse;
-import com.mustapha.medDesk.dto.response.UserDtoResponse;
+import com.mustapha.medDesk.dto.response.user.UserDtoResponse;
 import com.mustapha.medDesk.exception.ResourceNotFoundException;
 import com.mustapha.medDesk.exception.ValidationException;
 import com.mustapha.medDesk.mapper.UserMapper;
