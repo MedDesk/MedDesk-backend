@@ -32,6 +32,6 @@ public class Patient extends User{
 
 
     // each patient has a list of appointments
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Appointment> appointments;
 }

@@ -37,7 +37,7 @@ public class PatientDtoResponse {
     private MaritalStatus maritalStatus;
 
     // kep attention we gonna retunr ther id of appointment not the whole appointment object
-    // private List<AppoAntment> appointmentsIds = [];
+    // private List<long> appointmentsIds = [];
 
 
 }
