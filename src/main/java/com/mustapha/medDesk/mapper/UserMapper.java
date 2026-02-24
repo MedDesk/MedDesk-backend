@@ -19,4 +19,5 @@ public interface UserMapper {
 
     // this updates the filed that are sent form the request, so we don't have to do that manually
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromDto(UserUpdateRequest dto, @MappingTarget User user);}
+    void updateUserFromDto(UserUpdateRequest dto, @MappingTarget User user);
+}
