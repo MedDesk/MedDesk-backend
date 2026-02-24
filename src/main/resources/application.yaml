@@ -21,3 +21,10 @@ app:
   security:
     enabled: false
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha # Sorts endpoints alphabetically
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
