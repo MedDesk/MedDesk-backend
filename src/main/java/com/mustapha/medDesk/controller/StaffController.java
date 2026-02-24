@@ -24,7 +24,6 @@ import javax.xml.stream.events.EntityReference;
 public class StaffController {
 
     private final StaffService staffService;
-    private final StaffMapper staffMapper;
 
     @PostMapping
     public ResponseEntity<ApiResponse<StaffDtoResponse>> create(
