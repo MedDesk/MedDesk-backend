@@ -2,8 +2,10 @@ package com.mustapha.medDesk.dto.request.patient;
 
 
 import com.mustapha.medDesk.enums.Gender;
+import com.mustapha.medDesk.enums.MaritalStatus;
 import com.mustapha.medDesk.enums.PatientType;
 import com.mustapha.medDesk.enums.UserRole;
+import com.mustapha.medDesk.model.Appointment;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,6 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -54,5 +57,8 @@ public class PatientDtoRequest {
     // patient specific info
     @NotNull(message = "Patient type is required")
     private PatientType patientType;
+    private String cnss;
+    private MaritalStatus maritalStatus = MaritalStatus.UNASSIGNED;
+
 
 }
