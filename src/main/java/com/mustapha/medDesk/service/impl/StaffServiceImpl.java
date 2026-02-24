@@ -2,6 +2,7 @@ package com.mustapha.medDesk.service.impl;
 
 import com.mustapha.medDesk.dto.request.staff.StaffDtoRequest;
 import com.mustapha.medDesk.dto.response.Staff.StaffDtoResponse;
+import com.mustapha.medDesk.enums.UserRole;
 import com.mustapha.medDesk.exception.ResourceNotFoundException;
 import com.mustapha.medDesk.exception.ValidationException;
 import com.mustapha.medDesk.mapper.StaffMapper;
@@ -32,15 +33,17 @@ public class StaffServiceImpl implements StaffService {
     public StaffDtoResponse create(StaffDtoRequest dto) {
         boolean isExists = this.staffRepository.findByEmail(dto.getEmail()).isPresent();
         if(isExists){
-            throw  new ValidationException("account with this email is already exists");
+            throw new ValidationException("account with this email already exists");
         }
+
         Staff staff = staffMapper.toEntity(dto);
+
+        staff.setRole(UserRole.STAFF);
+
         staff.setPassword(PasswordUtil.hash(dto.getPassword()));
 
-        Staff savedStaff  = staffRepository.save(staff);
-
+        Staff savedStaff = staffRepository.save(staff);
         return staffMapper.toDto(savedStaff);
-
     }
 
     @Override

@@ -1,10 +1,18 @@
 package com.mustapha.medDesk.model;
 
 import com.mustapha.medDesk.enums.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity
+@Table(name = "staff")
+@Getter
+@Setter
+@Data
+@EqualsAndHashCode(callSuper = true) //this used for getting the important data to compare it
 public class Staff extends User{
 
 
