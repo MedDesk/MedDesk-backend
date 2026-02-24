@@ -1,6 +1,6 @@
 package com.mustapha.medDesk.service.impl;
 
-import com.mustapha.medDesk.dto.request.user.UserDtoReequest;
+import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
 import com.mustapha.medDesk.dto.response.UserDtoResponse;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     @Override
-    public UserDtoResponse Create(UserDtoReequest request) {
+    public UserDtoResponse Create(UserDtoRequest request) {
         // check if the user already exist
         if (userRepository.findByEmail(request.getUsername()).isPresent()) {
             throw new ValidationException("Email is already exist");

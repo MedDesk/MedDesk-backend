@@ -1,6 +1,6 @@
 package com.mustapha.medDesk.mapper;
 
-import com.mustapha.medDesk.dto.request.user.UserDtoReequest;
+import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
 import com.mustapha.medDesk.dto.response.UserDtoResponse;
@@ -10,13 +10,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel="spring")
-
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     UserDtoResponse toDto(User user);
 
-    User toEntity(UserDtoReequest request);
+    User toEntity(UserDtoRequest request);
 
 
     // this updates the filed that are sent form the request, so we don't have to do that manually

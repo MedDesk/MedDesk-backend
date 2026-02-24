@@ -1,3 +1,22 @@
 spring:
   application:
     name: medDesk
+
+  # This allows the H2 console or Swagger to be accessed if you add them later
+  h2:
+    console:
+      enabled: true
+
+  # Useful for seeing what's happening during development
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+# Custom property to toggle security (Optional - for advanced users)
+app:
+  security:
+    enabled: false

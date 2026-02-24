@@ -9,7 +9,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class UserDtoReequest {
+public class UserDtoRequest {
         @NotBlank(message = "first name is required")
         private String firstName;
         @NotBlank(message = "last name is required")
@@ -27,12 +27,13 @@ public class UserDtoReequest {
         private String phone;
         private String profileImage;
 
+        @NotNull(message = "Gender is required") // Add this!
         private Gender gender;
         private LocalDate birthDate;
         private String address;
         private String cin;
 
-        @NotBlank(message = "user role is required")
+        @NotNull(message = "Role is required")
         private UserRole role;
 
 

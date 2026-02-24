@@ -1,6 +1,7 @@
 package com.mustapha.medDesk.controller;
 
-import com.mustapha.medDesk.dto.request.user.UserDtoReequest;
+
+import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
 import com.mustapha.medDesk.dto.response.UserDtoResponse;
@@ -26,7 +27,7 @@ public class UserController {
     @PostMapping
     @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<UserDtoResponse>> createUser(
-            @Valid @RequestBody UserDtoReequest requestBody,
+            @Valid @RequestBody UserDtoRequest requestBody,
             HttpServletRequest request) {
         
         UserDtoResponse user = userService.Create(requestBody);
