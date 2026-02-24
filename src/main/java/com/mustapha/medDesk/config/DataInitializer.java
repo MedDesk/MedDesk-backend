@@ -4,6 +4,7 @@ import com.mustapha.medDesk.enums.Gender;
 import com.mustapha.medDesk.enums.UserRole;
 import com.mustapha.medDesk.model.User;
 import com.mustapha.medDesk.repository.UserRepository;
+import com.mustapha.medDesk.util.PasswordUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DataInitializer {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+
+
 
     @PostConstruct
     public void init(){
@@ -25,13 +27,15 @@ public class DataInitializer {
             superAdmin.setFirstName("admin");
             superAdmin.setLastName("admin");
             superAdmin.setUsername("superadmin");
-            superAdmin.setPassword(passwordEncoder.encode("superadminpassword"));
+            superAdmin.setPassword(PasswordUtil.hash("superadminpassword"));
             superAdmin.setEmail("superadmin@gmail.com");
             superAdmin.setGender(Gender.MALE);
             superAdmin.setRole(UserRole.SUPER_ADMIN);
 
             userRepository.save(superAdmin);
+            System.out.println("==========================================");
             System.out.println("super admin account created successfully");
+            System.out.println("==========================================");
         }
     }
 
