@@ -1,6 +1,5 @@
 package com.mustapha.medDesk.controller;
 
-
 import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
@@ -29,10 +28,16 @@ public class UserController {
     public ResponseEntity<ApiResponse<UserDtoResponse>> createUser(
             @Valid @RequestBody UserDtoRequest requestBody,
             HttpServletRequest request) {
-        
+
         UserDtoResponse user = userService.Create(requestBody);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(buildSuccessResponse("User created successfully", user, HttpStatus.CREATED, request.getRequestURI()));
+
+        ApiResponse<UserDtoResponse> response =
+                ApiResponse.success("User created successfully", user);
+
+        response.setStatus(HttpStatus.CREATED.value());
+        response.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
@@ -40,22 +45,32 @@ public class UserController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             HttpServletRequest request) {
-        
+
         Page<UserDtoResponse> users = userService.getALl(page, size);
-        return ResponseEntity.ok(
-                buildSuccessResponse("Users fetched successfully", users, HttpStatus.OK, request.getRequestURI())
-        );
+
+        ApiResponse<Page<UserDtoResponse>> response =
+                ApiResponse.success("Users fetched successfully", users);
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setPath(request.getRequestURI());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserDtoResponse>> getUserById(
             @PathVariable Long id,
             HttpServletRequest request) {
-        
+
         UserDtoResponse user = userService.getById(id);
-        return ResponseEntity.ok(
-                buildSuccessResponse("User fetched successfully", user, HttpStatus.OK, request.getRequestURI())
-        );
+
+        ApiResponse<UserDtoResponse> response =
+                ApiResponse.success("User fetched successfully", user);
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setPath(request.getRequestURI());
+
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
@@ -63,29 +78,31 @@ public class UserController {
             @PathVariable Long id,
             @RequestBody UserUpdateRequest requestBody,
             HttpServletRequest request) {
-        
+
         UserDtoResponse user = userService.update(id, requestBody);
-        return ResponseEntity.ok(
-                buildSuccessResponse("User updated successfully", user, HttpStatus.OK, request.getRequestURI())
-        );
+
+        ApiResponse<UserDtoResponse> response =
+                ApiResponse.success("User updated successfully", user);
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setPath(request.getRequestURI());
+
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteUser(
-            @PathVariable Long id, 
+            @PathVariable Long id,
             HttpServletRequest request) {
-        
-        userService.delete(id);
-        return ResponseEntity.ok(
-                buildSuccessResponse("User deleted successfully", null, HttpStatus.OK, request.getRequestURI())
-        );
-    }
 
-    private <T> ApiResponse<T> buildSuccessResponse(String message, T data, HttpStatus status, String path) {
-        ApiResponse<T> response = ApiResponse.success(message, data);
-        response.setStatus(status.value());
-        long value = status.value();
-        response.setPath(path);
-        return response;
+        userService.delete(id);
+
+        ApiResponse<Void> response =
+                ApiResponse.success("User deleted successfully", null);
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setPath(request.getRequestURI());
+
+        return ResponseEntity.ok(response);
     }
 }
