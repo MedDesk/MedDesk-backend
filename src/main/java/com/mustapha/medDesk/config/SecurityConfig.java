@@ -19,17 +19,18 @@ public class SecurityConfig {
             HttpSecurity http,
             CorsConfigurationSource corsConfigurationSource) throws Exception {
 
-        http
+        return http
+                // Disable CSRF for API compatibility
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // Use the injected Cors bean
+                // Integrate the defined CORS configuration
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
-                // Same logic as your first version
+                // Configure request authorization
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/**").permitAll()
-                );
+                )
 
-        return http.build();
+                .build();
     }
 }
