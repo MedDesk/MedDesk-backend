@@ -27,7 +27,7 @@ public class Doctor extends User{
     private String emergencyContact;
 
     // each doctor has a list of medicalRecords that he made
-  // @OneToMany()
+   @OneToMany(mappedBy = "doctor")
     private List<MedicalRecord> medicalRecords;
 
 

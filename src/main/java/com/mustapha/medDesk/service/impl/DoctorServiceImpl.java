@@ -31,7 +31,6 @@ import java.util.List;
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
-    private final DoctorService doctorService;
 
     @Override
     public DoctorDtoResponse create(DoctorDtoRequest dto) {

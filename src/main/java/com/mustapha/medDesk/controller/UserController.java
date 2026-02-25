@@ -51,7 +51,7 @@ public class UserController {
         Page<UserDtoResponse> users = userService.getALl(page, size);
 
         ApiResponse<Page<UserDtoResponse>> response =
-                ApiResponse.success("Users fetched successfully", users);
+                ApiResponse.success("Doctors fetched successfully", users);
 
         response.setStatus(HttpStatus.OK.value());
         response.setPath(request.getRequestURI());
@@ -67,7 +67,7 @@ public class UserController {
         UserDtoResponse user = userService.getById(id);
 
         ApiResponse<UserDtoResponse> response =
-                ApiResponse.success("User fetched successfully", user);
+                ApiResponse.success("Doctor fetched successfully", user);
 
         response.setStatus(HttpStatus.OK.value());
         response.setPath(request.getRequestURI());
@@ -84,7 +84,7 @@ public class UserController {
         UserDtoResponse user = userService.update(id, requestBody);
 
         ApiResponse<UserDtoResponse> response =
-                ApiResponse.success("User updated successfully", user);
+                ApiResponse.success("Doctor updated successfully", user);
 
         response.setStatus(HttpStatus.OK.value());
         response.setPath(request.getRequestURI());
@@ -100,7 +100,7 @@ public class UserController {
         userService.delete(id);
 
         ApiResponse<Void> response =
-                ApiResponse.success("User deleted successfully", null);
+                ApiResponse.success("Doctor deleted successfully", null);
 
         response.setStatus(HttpStatus.OK.value());
         response.setPath(request.getRequestURI());
