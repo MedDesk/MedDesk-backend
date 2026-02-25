@@ -8,6 +8,7 @@ import com.mustapha.medDesk.exception.ResourceNotFoundException;
 import com.mustapha.medDesk.exception.ValidationException;
 import com.mustapha.medDesk.mapper.DoctorMapper;
 import com.mustapha.medDesk.model.Doctor;
+import com.mustapha.medDesk.model.MedicalRecord;
 import com.mustapha.medDesk.repository.DoctorRepository;
 import com.mustapha.medDesk.service.DoctorService;
 import com.mustapha.medDesk.util.PasswordUtil;
@@ -20,6 +21,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -57,11 +60,24 @@ public class DoctorServiceImpl implements DoctorService {
         if(dto.getPassword() != null && !dto.getPassword().isBlank()){
             doctor.setPassword(PasswordUtil.hash(dto.getPassword()));
         }
+
         // save doctor entity
         Doctor savedDoctor = doctorRepository.save(doctor);
-        // return doctor response
-        return doctorMapper.toDto(savedDoctor);
+
+        DoctorDtoResponse response = doctorMapper.toDto(savedDoctor);
+
+        // get all doctors medicalREcirds and retunr there ids
+        if(savedDoctor.getMedicalRecords() != null){
+            List<Long>medicalRecordIds = savedDoctor.getMedicalRecords().stream()
+                    .map(record -> record.getId()).toList();
+            response.setMedicalRecordIds(medicalRecordIds);
+        }
+
+        return response;
+
     }
+
+
 
     @Override
     public DoctorDtoResponse findById(Long id) {
