@@ -16,11 +16,13 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Patient extends User{
 
     @Column(name = "register_date", nullable = true)
     private LocalDate registerDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "patient_type", nullable = true)
     private PatientType patientType;
 

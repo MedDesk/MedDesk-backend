@@ -19,6 +19,7 @@ public class PatientDtoResponse {
 
 
     // general info
+    private Long id;
     private String firstName;
     private String lastName;
     private String username;
@@ -28,12 +29,12 @@ public class PatientDtoResponse {
     private Gender gender;
     private LocalDate birthDate;
     private String address;
-    private String cin;
+    private String CIN;
 
     // patient specific info
     private LocalDate registerDate;
     private PatientType patientType;
-    private String css;
+    private String cnss;
     private MaritalStatus maritalStatus;
 
     // kep attention we gonna retunr ther id of appointment not the whole appointment object

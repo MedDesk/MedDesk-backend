@@ -30,7 +30,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientDtoResponse create(PatientDtoRequest dto) {
         // check if the patient is already exists
         boolean isExists = patientRepository.findByEmail(dto.getEmail()).isPresent();
-        if(!isExists){
+        if(isExists){
             throw new  ValidationException("Email already exist");
         }
         Patient patient = patientMapper.toEntity(dto);
