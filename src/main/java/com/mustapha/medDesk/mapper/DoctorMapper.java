@@ -16,6 +16,7 @@ public interface DoctorMapper {
     })
     DoctorDtoResponse toDto(Doctor doctor);
 
+
     @Mappings({
             @Mapping(source = "emergency_contact", target = "emergencyContact"),
             @Mapping(source = "license_number", target = "licenseNumber"),
