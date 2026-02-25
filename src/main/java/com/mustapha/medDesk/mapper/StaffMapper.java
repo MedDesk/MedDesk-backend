@@ -26,6 +26,8 @@ public interface StaffMapper {
     })
     Staff toEntity(StaffDtoRequest request);
 
+
+    // this is responsible for update staff data with just updated data
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateStaffFromDto(StaffDtoRequest dto, @MappingTarget Staff staff);
 }
