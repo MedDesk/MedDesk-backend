@@ -92,4 +92,6 @@ public class DoctorController {
       doctorService.delete(id);
        return ResponseEntity.noContent().build();
     }
+
+
 }
