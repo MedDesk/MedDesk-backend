@@ -12,7 +12,7 @@ public interface DoctorMapper {
             @Mapping(target = "medicalRecordIds", ignore = true),
             @Mapping(source = "emergencyContact", target = "emergency_contact"),
             @Mapping(source = "licenseNumber", target = "license_number"),
-            @Mapping(source = "CIN", target = "CIN") // <--- تم التغيير: المصدر في الـ Entity هو CIN بحروف كبيرة
+            @Mapping(source = "CIN", target = "CIN")
     })
     DoctorDtoResponse toDto(Doctor doctor);
 
