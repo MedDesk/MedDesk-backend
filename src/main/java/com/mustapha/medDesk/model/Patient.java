@@ -30,7 +30,6 @@ public class Patient extends User{
     @Column(name = "marital_status", nullable = true)
     private MaritalStatus maritalStatus;
 
-
     // each patient has a list of appointments
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Appointment> appointments;
