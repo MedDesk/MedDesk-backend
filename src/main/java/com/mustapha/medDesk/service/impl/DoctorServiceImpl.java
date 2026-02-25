@@ -48,6 +48,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     }
 
+
+
     @Override
     public DoctorDtoResponse update(Long id, DoctorDtoRequest dto) {
         // find existing doctor
@@ -87,6 +89,8 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorMapper.toDto(doctor);
     }
 
+
+
     @Override
     public Page<DoctorDtoResponse> getAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -94,6 +98,9 @@ public class DoctorServiceImpl implements DoctorService {
                 doctor-> doctorMapper.toDto(doctor)
         );
     }
+
+
+
     @Override
     public void delete(Long id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(
