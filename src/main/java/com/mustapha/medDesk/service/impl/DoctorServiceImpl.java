@@ -94,7 +94,6 @@ public class DoctorServiceImpl implements DoctorService {
                 doctor-> doctorMapper.toDto(doctor)
         );
     }
-
     @Override
     public void delete(Long id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(
