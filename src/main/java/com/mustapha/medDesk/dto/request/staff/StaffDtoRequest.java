@@ -44,7 +44,6 @@ public class StaffDtoRequest {
     private String address;
     private String cin;
 
-
     // staff information
     @NotNull(message = "the specialist is required")
     private StaffSpecialist specialist;
