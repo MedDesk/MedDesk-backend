@@ -26,7 +26,6 @@ public interface StaffMapper {
     })
     Staff toEntity(StaffDtoRequest request);
 
-
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateStaffFromDto(StaffDtoRequest dto, @MappingTarget Staff staff);
 }
