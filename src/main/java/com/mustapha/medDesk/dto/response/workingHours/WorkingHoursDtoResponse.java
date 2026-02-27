@@ -17,4 +17,5 @@ public class WorkingHoursDtoResponse {
     private LocalTime startTime;
     private LocalTime endTime;
     private boolean active;
+
 }
