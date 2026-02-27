@@ -13,3 +13,4 @@ public interface WorkingHoursService {
     List<WorkingHoursDtoResponse> getAll();
     void delete(Long id);
 }
+
