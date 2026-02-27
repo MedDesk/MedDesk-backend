@@ -2,8 +2,11 @@ package com.mustapha.medDesk.service;
 
 import com.mustapha.medDesk.dto.request.appointment.AppointmentDtoRequest;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentDtoResponse;
+import com.mustapha.medDesk.dto.response.Appointment.DayScheduleResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface AppointmentService {
@@ -12,4 +15,6 @@ public interface AppointmentService {
     Page<AppointmentDtoResponse>findAll(int page, int size);
     AppointmentDtoResponse getById(Long id);
     void delete(Long id);
+
+    List<DayScheduleResponse>  getWeeklyAvailability(); // return all days and appointments
 }
