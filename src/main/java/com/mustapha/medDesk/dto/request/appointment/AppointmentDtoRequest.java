@@ -20,8 +20,9 @@ public class AppointmentDtoRequest {
     @Future
     private LocalDateTime scheduleTimeStart;
 
-    @NotNull(message = "End time is required")
-    private LocalDateTime scheduleTimeEnd;
+    // it's gonna calculate automatically
+//    @NotNull(message = "End time is required")
+//    private LocalDateTime scheduleTimeEnd;
 
     @NotNull(message = "Status is required")
     private AppointmentStatus appointmentStatus;
