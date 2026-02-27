@@ -17,3 +17,4 @@ public interface WorkingHoursMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateWorkingHoursFromDto(WorkingHoursDtoRequest dto, @MappingTarget WorkingHours workingHours);
 }
+
