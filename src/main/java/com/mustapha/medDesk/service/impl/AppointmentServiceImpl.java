@@ -38,56 +38,49 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentDtoResponse create(AppointmentDtoRequest dto) {
 
-    /*
-    DETERMINING DAY AND HOURS
-    We extract the day from the request date and find the
-    corresponding working hours for the clinic.
-    */
+        //get Appointment date from dto request
         java.time.DayOfWeek jdkDay = dto.getAppointmentDate().getDayOfWeek();
+
+        // Transform date to my Customize date form monday-12-2026 to MONDAY
         DayOfWeek customDay = DayOfWeek.valueOf(jdkDay.name());
 
+        // check if te day in request is exist or not
         WorkingHours workingHours = workingHoursRepository
                 .findByDayOfWeek(customDay)
                 .orElseThrow(() -> new ValidationException("No working hours set for this day"));
-
+        // if day exist get gonna got that day StartTime and endTime
         LocalTime workStart = workingHours.getStartTime();
         LocalTime workEnd = workingHours.getEndTime();
 
-    /*
-    BOUNDS VALIDATION
-    We confirm that the requested time falls within the
-    clinics active hours.
-    */
+        // we valid the appointment like start time should be before end time --Logic
         if (dto.getScheduleTimeStart().isBefore(workStart) ||
                 dto.getScheduleTimeStart().isAfter(workEnd.minusMinutes(30))) {
             throw new ValidationException("Appointment time must be within working hours");
         }
 
-    /*
-    SLOT SEARCH AND CREATION
-    We loop through the workday in blocks. If a block is
-    not booked and matches the user request we create
-    the entity and save it to the database.
-    */
+
+        /**
+         * here we go through all that day Times
+         */
         LocalTime slotStart = workStart;
         boolean slotFound = false;
         Appointment newAppointment = null;
 
         while (!slotStart.isAfter(workEnd.minusMinutes(30))) {
 
+            // here we take the start time and end time (endTime is startTime + 30min)
             LocalTime slotEnd = slotStart.plusMinutes(30);
 
+            // i pass start time and endTime --> to check if exist already in dabatabse
             boolean exists = appointmentReposiotry.existsByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(
                     dto.getAppointmentDate(), slotStart, slotEnd
             );
 
+            // if not exist we create new appointment
             if (!exists && slotStart.equals(dto.getScheduleTimeStart())) {
                 newAppointment = new Appointment();
 
-            /*
-            SETTING THE DATE
-            This matches the new field we added to the model.
-            */
+
                 newAppointment.setAppointmentDate(dto.getAppointmentDate());
 
                 newAppointment.setScheduleTimeStart(slotStart);
@@ -98,7 +91,9 @@ public class AppointmentServiceImpl implements AppointmentService {
                 );
                 newAppointment.setAppointmentStatus(dto.getAppointmentStatus());
 
+                // we save created appointment in db
                 appointmentReposiotry.save(newAppointment);
+                 // we set slotFound true to stop whileLoop
                 slotFound = true;
                 break;
             }
@@ -112,15 +107,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return appointmentMapper.toDto(newAppointment);
     }
+
+
+
     @Override
     public AppointmentDtoResponse update(Long id, AppointmentDtoRequest dto) {
-        /*
-        UPDATING APPOINTMENT DETAILS
-        We find the existing record by its identifier. Currently this
-        method updates the status of the appointment. If you wish to
-        change the time you would need to repeat the slot validation
-        logic to prevent overbooking.
-        */
+
         Appointment appointment = appointmentReposiotry.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
 
@@ -131,22 +123,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Page<AppointmentDtoResponse> findAll(int page, int size) {
-        /*
-        FETCHING ALL APPOINTMENTS
-        We retrieve a paginated list of all appointments from the
-        database to keep the response sizes manageable for the frontend.
-        */
+
         return appointmentReposiotry.findAll(PageRequest.of(page, size))
                 .map(appointmentMapper::toDto);
     }
 
     @Override
     public AppointmentDtoResponse getById(Long id) {
-        /*
-        SINGLE RECORD LOOKUP
-        We find a specific appointment using its unique id. If it
-        is not found we notify the user with a resource not found exception.
-        */
         return appointmentReposiotry.findById(id)
                 .map(appointmentMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
@@ -154,25 +137,17 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void delete(Long id) {
-        /*
-        REMOVING AN APPOINTMENT
-        We delete the record from the database. This effectively
-        frees up the thirty minute slot for other patients to book.
-        */
+
         if (!appointmentReposiotry.existsById(id)) {
             throw new ResourceNotFoundException("Appointment not found");
         }
         appointmentReposiotry.deleteById(id);
     }
 
+
+    // This is the responsible to return the all available or not available in certain date
     public List<AppointmentSlotResponse> getSlotsByDate(LocalDate date) {
-        /*
-        GENERATING THE DAILY AVAILABILITY MAP
-        This logic is crucial for the frontend. It looks at the
-        clinics hours for a specific date and checks every single
-        thirty minute block. It returns a list showing which slots
-        are free and which ones are already taken.
-        */
+
         DayOfWeek customDay = DayOfWeek.valueOf(date.getDayOfWeek().name());
         WorkingHours hours = workingHoursRepository.findByDayOfWeek(customDay)
                 .orElse(null);
