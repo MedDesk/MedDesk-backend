@@ -11,7 +11,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * A: annotation
  * T: type of the class we gonna use
  */
-public class AppointmentTimeValidator implements ConstraintValidator<ValidAppointmentTime, AppointmentDtoRequest>{
+public class AppointmentTimeValidator implements ConstraintValidator<ValidAppointmentTime, AppointmentDtoRequest> {
 
 
     /**
@@ -21,19 +21,17 @@ public class AppointmentTimeValidator implements ConstraintValidator<ValidAppoin
     public boolean isValid(AppointmentDtoRequest dto,
                            ConstraintValidatorContext context) {
 
-        if (dto.getScheduleTimeStart() == null ||
-                dto.getScheduleTimeEnd() == null) {
-            return true; // here we made a good point if it's null the @Valid handle @NotNull not the our customize validator
+        if (dto.getScheduleTimeStart() == null) {
+            return true; // @NotNull
         }
 
 
-        // the real condition
-        /**
-         * start date < end date retunr true
-         * start date > end date return false
-         */
-        return dto.getScheduleTimeStart()
-                .isBefore(dto.getScheduleTimeEnd());
+        if (dto.getScheduleTimeEnd() == null) {
+            dto.setScheduleTimeEnd(dto.getScheduleTimeStart().plusMinutes(30));
+        }
+
+
+        return dto.getScheduleTimeStart().isBefore(dto.getScheduleTimeEnd());
     }
 }
 

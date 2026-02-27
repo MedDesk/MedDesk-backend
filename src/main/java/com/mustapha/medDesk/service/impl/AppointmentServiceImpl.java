@@ -20,7 +20,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDtoResponse create(AppointmentDtoRequest dto) {
-
+return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.mustapha.medDesk.dto.request.workingHour;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mustapha.medDesk.enums.DayOfWeek;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,11 @@ public class WorkingHoursDtoRequest {
     private DayOfWeek dayOfWeek;
 
     @NotNull(message = "Please choose start time")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;
 
     @NotNull(message = "Please choose end time")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime endTime;
 
     @NotNull(message = "Please specify if the day is active")

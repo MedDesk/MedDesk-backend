@@ -8,6 +8,8 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface AppointmentMapper {
 
+
+
     // Entity -> DTO
     @Mapping(source = "patient.id", target = "patientId")
     @Mapping(source = "medicalRecord.id", target = "medicalRecordId")
@@ -19,6 +21,7 @@ public interface AppointmentMapper {
     Appointment toEntity(AppointmentDtoRequest dto);
 
     // Update existing entity (for PUT requests)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "patientId", target = "patient.id")
     void updateEntityFromDto(AppointmentDtoRequest dto, @MappingTarget Appointment entity);

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -17,9 +18,10 @@ import java.time.LocalDateTime;
 public class AppointmentDtoResponse {
 
     private Long id;
-    private LocalDateTime scheduleTimeStart;
-    private LocalDateTime scheduleTimeEnd;
+    private LocalTime scheduleTimeStart;
+    private LocalTime scheduleTimeEnd;
     private AppointmentStatus appointmentStatus;
     private Long patientId;
+    private Long medicalRecordId;
 
 }

@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface AppointmentReposiotry extends JpaRepository<Appointment, Long> {
     Optional<Appointment> findById(Long id);
-    Optional<Appointment> findByEmail(String email);
 
     boolean existsByScheduleTimeStartLessThanAndScheduleTimeEndGreaterThan(
             LocalDateTime end,

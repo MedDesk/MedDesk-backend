@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "appointments")
@@ -19,10 +20,10 @@ public class Appointment extends BaseEntity{
     // the id comes form BaseEntity
 
     @Column(name = "appointment_start_time", nullable = false)
-    private LocalDateTime scheduleTimeStart;
+    private LocalTime scheduleTimeStart;
 
     @Column(name = "appointment_end_time",nullable = false)
-    private LocalDateTime scheduleTimeEnd;
+    private LocalTime scheduleTimeEnd;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "appointment_status", nullable = false )

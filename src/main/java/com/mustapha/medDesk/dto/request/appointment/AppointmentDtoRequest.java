@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -18,15 +19,23 @@ public class AppointmentDtoRequest {
 
     @NotNull(message = "Start time is required")
     @Future
-    private LocalDateTime scheduleTimeStart;
+    private LocalTime scheduleTimeStart;
 
     // it's gonna calculate automatically
-//    @NotNull(message = "End time is required")
-//    private LocalDateTime scheduleTimeEnd;
+    @NotNull(message = "End time is required")
+    private LocalTime scheduleTimeEnd;
 
     @NotNull(message = "Status is required")
     private AppointmentStatus appointmentStatus;
 
     @NotNull(message = "Please select the patient")
     private Long patientId;
+
+
+    public void setScheduleTimeStart(LocalTime scheduleTimeStart) {
+        this.scheduleTimeStart = scheduleTimeStart;
+        if (scheduleTimeStart != null) {
+            this.scheduleTimeEnd = scheduleTimeStart.plusMinutes(30);
+        }
+    }
 }
