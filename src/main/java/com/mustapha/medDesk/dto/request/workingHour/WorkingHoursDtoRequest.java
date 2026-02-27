@@ -14,6 +14,7 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class WorkingHoursDtoRequest {
 
     @NotNull(message = "Please choose day")
