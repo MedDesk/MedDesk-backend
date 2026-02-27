@@ -15,6 +15,8 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
+
 public class WorkingHours {
 
     @Id
