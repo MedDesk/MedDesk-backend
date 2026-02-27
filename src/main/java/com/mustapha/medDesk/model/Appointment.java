@@ -19,6 +19,7 @@ public class Appointment extends BaseEntity {
     The appointment date is required to track which day
     the patient is visiting the clinic.
     */
+
     @Column(name = "appointment_date", nullable = false)
     private LocalDate appointmentDate;
 
