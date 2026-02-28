@@ -40,6 +40,7 @@ public class WorkingHoursController {
         return ResponseEntity.status(HttpStatus.CREATED.value()).body(response);
     }
 
+
     @PatchMapping("/{id}")
     public ResponseEntity<ApiResponse<WorkingHoursDtoResponse>> update(
             @Valid
