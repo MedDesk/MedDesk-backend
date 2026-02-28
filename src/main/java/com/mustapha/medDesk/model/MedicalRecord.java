@@ -22,11 +22,6 @@ public class MedicalRecord extends BaseEntity {
     @JoinColumn(name = "nurse_id", nullable = false)
     private Staff nurse;
 
-  /*
-    @OneToMany(mappedBy = "nurse")
-private List<MedicalRecord> medicalRecords;
-*/
-
     // doctor
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
