@@ -14,3 +14,5 @@ public interface MedicalRecordService {
     MedicalRecordDtoResponse getById(Long id);
     void delete(Long id);
 }
+
+
