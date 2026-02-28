@@ -32,4 +32,5 @@ public interface MedicalRecordMapper {
     @Mapping(target = "appointment", ignore = true)
     @Mapping(target = "vital", ignore = true)
     void updateMedicalRecordForm(MedicalRecordDtoRequest request, @MappingTarget MedicalRecord medicalRecord);
+
 }
