@@ -146,6 +146,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
     // This is the responsible to return the all available or not available in certain date
+    @Override
     public List<AppointmentSlotResponse> getSlotsByDate(LocalDate date) {
 
         DayOfWeek customDay = DayOfWeek.valueOf(date.getDayOfWeek().name());
@@ -188,27 +189,22 @@ public class AppointmentServiceImpl implements AppointmentService {
         LocalDate today = LocalDate.now();
 
         for (WorkingHours hours : allWorkingHours) {
-        /*
-        CALCULATING THE CALENDAR DATE
-        Since your database only stores the name of the day we must
-        calculate the actual calendar date for the upcoming occurrence
-        of that day so we can check for real appointments in the
-        appointment table.
-        */
+
             DayOfWeek customDay = hours.getDayOfWeek();
             java.time.DayOfWeek targetDay = java.time.DayOfWeek.valueOf(customDay.name());
 
             LocalDate nextOccurence = today;
+
+            /* it's important to understand
+             * Builds the weekly schedule by converting working day templates
+             * into real upcoming dates, generating 30-minute slots,
+             * and marking each slot as available or booked.
+             */
+
             while (nextOccurence.getDayOfWeek() != targetDay) {
                 nextOccurence = nextOccurence.plusDays(1);
             }
 
-        /*
-        GENERATING SLOTS FOR THIS SPECIFIC DAY
-        We reuse the slot generation logic. We loop from the opening
-        time to the closing time for this specific day and check
-        if any appointments exist on that calculated date.
-        */
             List<AppointmentSlotResponse> slotsForDay = new ArrayList<>();
             LocalTime current = hours.getStartTime();
 
@@ -228,11 +224,6 @@ public class AppointmentServiceImpl implements AppointmentService {
                 current = next;
             }
 
-        /*
-        MAPPING TO THE WEEKLY RESPONSE
-        We bundle the day name the calculated date and all the
-        generated slots into one object to be sent to the frontend.
-        */
             weeklySchedule.add(DayScheduleResponse.builder()
                     .dayOfWeek(customDay)
                     .date(nextOccurence)
