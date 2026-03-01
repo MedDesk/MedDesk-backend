@@ -30,4 +30,5 @@ public class VitalDtoResponse {
     private Boolean hasFeverHistory;
     private Double bloodSugar;
     private LocalDateTime recordedAt;
+
 }
