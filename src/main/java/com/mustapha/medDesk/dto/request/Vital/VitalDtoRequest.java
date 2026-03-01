@@ -71,5 +71,4 @@ public class VitalDtoRequest {
 
     @NotNull(message = "Recording timestamp is required")
     private LocalDateTime recordedAt;
-
 }
