@@ -58,6 +58,7 @@ public class Vital extends BaseEntity {
     private LocalDateTime recordedAt;
 
     @OneToOne
-    @JoinColumn(name = "medical_record_id") // Changed hyphen to underscore (standard practice)
+    @JoinColumn(name = "medical_record_id")
     private MedicalRecord medicalRecord;
 }
+
