@@ -82,5 +82,7 @@ public class VitalController {
         return ResponseEntity.ok(response);
     }
 
+
+
 }
 
