@@ -19,6 +19,7 @@ public class Vital extends BaseEntity {
 
     // --- Cardiovascular ---
     // Use @Min and @Max for numbers, @Size is only for Strings/Collections
+
     @Min(value = 50, message = "Systolic BP is too low")
     @Max(value = 250, message = "Systolic BP is too high")
     private Integer systolicBP;
