@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface VitalRepository extends JpaRepository<Vital, Long> {
     Optional<Vital> findById(Long id);
+
 }
