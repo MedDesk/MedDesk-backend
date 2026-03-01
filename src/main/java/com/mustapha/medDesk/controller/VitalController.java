@@ -58,6 +58,7 @@ public class VitalController {
         return ResponseEntity.ok(response);
     }
 
+
     @GetMapping
     public ResponseEntity<ApiResponse<List<VitalDtoResponse>>> getAll(HttpServletRequest http) {
         List<VitalDtoResponse> responseData = vitalService.getAll();
@@ -66,6 +67,7 @@ public class VitalController {
         response.setPath(http.getRequestURI());
         return ResponseEntity.ok(response);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(
@@ -78,4 +80,5 @@ public class VitalController {
         response.setPath(http.getRequestURI());
         return ResponseEntity.ok(response);
     }
+
 }
