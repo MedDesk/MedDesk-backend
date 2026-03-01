@@ -79,6 +79,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
                 throw new ValidationException("The new appointment ID is already linked to another record.");
             }
         }
+
         validateRelatedEntities(dto);
 
         medicalRecordMapper.updateMedicalRecordForm(dto, medicalRecord);
