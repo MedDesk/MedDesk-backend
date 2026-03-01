@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VitalController {
 
+
     private final VitalService vitalService;
 
     @PostMapping
