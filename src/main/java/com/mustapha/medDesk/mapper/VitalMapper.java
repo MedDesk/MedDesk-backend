@@ -9,7 +9,6 @@ import org.mapstruct.*;
 public interface VitalMapper {
 
 
-
     @Mapping(source = "medicalRecord.id", target = "medicalRecordId")
     VitalDtoResponse toDto(Vital vital);
 
