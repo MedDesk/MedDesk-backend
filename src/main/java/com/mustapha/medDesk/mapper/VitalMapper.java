@@ -12,7 +12,6 @@ public interface VitalMapper {
     @Mapping(source = "medicalRecord.id", target = "medicalRecordId")
     VitalDtoResponse toDto(Vital vital);
 
-
     @Mapping(target = "medicalRecord", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
