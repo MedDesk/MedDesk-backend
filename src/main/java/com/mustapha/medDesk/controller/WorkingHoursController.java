@@ -24,8 +24,6 @@ public class WorkingHoursController {
 
     private final WorkingHoursService workingHoursService;
 
-
-
     @PostMapping
     public ResponseEntity<ApiResponse<WorkingHoursDtoResponse>> create(
             @Valid
