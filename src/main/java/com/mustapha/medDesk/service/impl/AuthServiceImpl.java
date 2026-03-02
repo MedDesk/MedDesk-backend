@@ -31,16 +31,16 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public AuthDtoResponse register(RegisterDtoRequest dto) {
-        // 1. Check if email is already taken
+        //  Check if email is already taken
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new ValidationException("Email is already in use");
         }
 
-        // 2. Handle username logic (If blank, use email)
+        // Handle username logic (If blank, use email)
         String username = (dto.getUsername() == null || dto.getUsername().isBlank())
                 ? dto.getEmail() : dto.getUsername();
 
-        // 3. Create User Entity
+        //  Create User Entity
         User user = User.builder()
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
@@ -68,8 +68,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthDtoResponse Login(LoginDtoRequest dto) {
-        // 1. Trigger Spring Security Authentication
-        // This automatically checks the email and password (using BCrypt)
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
         );

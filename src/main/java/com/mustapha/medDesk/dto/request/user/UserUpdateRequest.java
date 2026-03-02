@@ -21,4 +21,5 @@ public class UserUpdateRequest {
     private String address;
     private String cin;
     private UserRole role;
+
 }
