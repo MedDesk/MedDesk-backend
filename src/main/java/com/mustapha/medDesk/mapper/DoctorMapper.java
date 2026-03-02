@@ -5,7 +5,8 @@ import com.mustapha.medDesk.dto.response.doctor.DoctorDtoResponse;
 import com.mustapha.medDesk.model.Doctor;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",     builder = @Builder(disableBuilder = true) // This disables the use of Lombok Builders
+)
 public interface DoctorMapper {
 
     @Mappings({

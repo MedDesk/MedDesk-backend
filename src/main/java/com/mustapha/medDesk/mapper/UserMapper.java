@@ -4,12 +4,11 @@ import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserUpdateRequest;
 import com.mustapha.medDesk.dto.response.user.UserDtoResponse;
 import com.mustapha.medDesk.model.User;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+
+@Mapper(componentModel = "spring",     builder = @Builder(disableBuilder = true) // This disables the use of Lombok Builders
+)
 public interface UserMapper {
 
     UserDtoResponse toDto(User user);

@@ -6,7 +6,7 @@ import com.mustapha.medDesk.dto.response.workingHours.WorkingHoursDtoResponse;
 import com.mustapha.medDesk.model.WorkingHours;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",      builder = @Builder(disableBuilder = true))
 public interface WorkingHoursMapper {
 
     WorkingHoursDtoResponse toDto(WorkingHours workingHours);

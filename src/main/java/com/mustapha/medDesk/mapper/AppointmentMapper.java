@@ -5,7 +5,7 @@ import com.mustapha.medDesk.dto.response.Appointment.AppointmentDtoResponse;
 import com.mustapha.medDesk.model.Appointment;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",  builder = @Builder(disableBuilder = true))
 public interface AppointmentMapper {
 
 

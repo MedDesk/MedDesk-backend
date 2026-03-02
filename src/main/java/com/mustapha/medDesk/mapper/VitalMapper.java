@@ -5,7 +5,7 @@ import com.mustapha.medDesk.dto.response.vital.VitalDtoResponse;
 import com.mustapha.medDesk.model.Vital;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",      builder = @Builder(disableBuilder = true))
 public interface VitalMapper {
 
 

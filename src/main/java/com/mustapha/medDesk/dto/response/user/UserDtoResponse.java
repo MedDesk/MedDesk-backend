@@ -2,12 +2,15 @@ package com.mustapha.medDesk.dto.response.user;
 
 import com.mustapha.medDesk.enums.Gender;
 import com.mustapha.medDesk.enums.UserRole;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter // Jackson needs this!
+@Setter
 public class UserDtoResponse {
 
     private Long id;

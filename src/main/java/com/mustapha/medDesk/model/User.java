@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
     @Column(nullable = false)
@@ -35,7 +37,8 @@ public class User extends BaseEntity {
     @Column(nullable = true)
     private LocalDate birthDate;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private Gender gender;
 
     @Column(nullable = true)

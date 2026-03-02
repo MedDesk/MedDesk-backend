@@ -5,7 +5,8 @@ import com.mustapha.medDesk.dto.response.MedicalRecord.MedicalRecordDtoResponse;
 import com.mustapha.medDesk.model.MedicalRecord;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,     builder = @Builder(disableBuilder = true) // This disables the use of Lombok Builders
+)
 public interface MedicalRecordMapper {
 
     // Still need this for the Response

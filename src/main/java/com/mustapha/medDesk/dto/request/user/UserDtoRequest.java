@@ -5,10 +5,14 @@ import com.mustapha.medDesk.enums.UserRole;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Data
+@Getter // Jackson needs this!
+@Setter
 public class UserDtoRequest {
         @NotBlank(message = "first name is required")
         private String firstName;

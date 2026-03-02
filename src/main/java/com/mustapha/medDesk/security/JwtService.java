@@ -23,31 +23,35 @@ public class JwtService {
     private final JwtProperties jwtProperties;
 
     /**
-     * Extracts the username (subject) from the token
+     * Generates a short-lived Access Token (includes roles/authorities)
      */
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    /**
-     * Generates a token with default claims (including roles)
-     */
-    public String generateToken(UserDetails userDetails) {
+    public String generateAccessToken(UserDetails userDetails) {
         Map<String, Object> extraClaims = new HashMap<>();
-        // Extract roles and put them in the token for the frontend to use
+        // Best Practice: Include roles in the access token for frontend permissions
         extraClaims.put("roles", userDetails.getAuthorities());
-        return generateToken(extraClaims, userDetails);
+        return buildToken(extraClaims, userDetails, jwtProperties.getAccessTokenExpiration());
     }
 
     /**
-     * Generates a token with extra claims
+     * Generates a long-lived Refresh Token (minimal claims for security)
      */
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public String generateRefreshToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, jwtProperties.getRefreshTokenExpiration());
+    }
+
+    /**
+     * Generic helper method to build any type of token
+     */
+    private String buildToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration
+    ) {
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessTokenExpiration()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -60,9 +64,10 @@ public class JwtService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    /**
-     * Generic method to extract a single claim
-     */
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -76,9 +81,6 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    /**
-     * Parses the token and returns all claims
-     */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -87,9 +89,6 @@ public class JwtService {
                 .getBody();
     }
 
-    /**
-     * Decodes the secret key and prepares the signing key
-     */
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtProperties.getSecret());
         return Keys.hmacShaKeyFor(keyBytes);

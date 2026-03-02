@@ -36,16 +36,20 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
                 //  Set Authorization Rules
+                // 3. Allow EVERYTHING
                 .authorizeHttpRequests(auth -> auth
-                        // Allow anyone to attempt login or registration
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-
-                        // (Optional) Allow Swagger/OpenAPI documentation if you use it
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-
-                        // Everything else MUST be authenticated
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
+
+//                .authorizeHttpRequests(auth -> auth
+//                        // Allow anyone to attempt login or registration
+//                        .requestMatchers("/api/v1/auth/**").permitAll()
+//                        // (Optional) Allow Swagger/OpenAPI documentation if you use it
+//                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+//
+//                        // Everything else MUST be authenticated
+//                        .anyRequest().authenticated()
+//                )
 
                 //Set Session Management to STATELESS (No Cookies)
                 .sessionManagement(session -> session
