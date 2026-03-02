@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "jwt")
 @Data
 public class JwtProperties {
+
     private String secret;
     private long accessTokenExpiration;  // 15 min
     private long refreshTokenExpiration; // 7 days
