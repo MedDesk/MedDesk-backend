@@ -12,6 +12,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class MedicalRecord extends BaseEntity {
 
     // we can have to add patient but we  don't have too becuse we have aleady the relationship between the appointmet that include the patient

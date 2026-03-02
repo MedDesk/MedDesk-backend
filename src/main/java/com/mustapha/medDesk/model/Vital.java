@@ -2,6 +2,8 @@ package com.mustapha.medDesk.model;
 
 import com.mustapha.medDesk.enums.BloodGroup;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,49 +14,50 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Vital extends BaseEntity{
+@EqualsAndHashCode(callSuper = true)
+public class Vital extends BaseEntity {
 
     // --- Cardiovascular ---
-    private Integer systolicBP;  // Use Integer for math (e.g., 120)
-    private Integer diastolicBP; // Use Integer for math (e.g., 80)
-    private Integer heartRate;   // beats per minute
+    // Use @Min and @Max for numbers, @Size is only for Strings/Collections
+    @Min(value = 50, message = "Systolic BP is too low")
+    @Max(value = 250, message = "Systolic BP is too high")
+    private Integer systolicBP;
+
+    @Min(value = 30)
+    @Max(value = 150)
+    private Integer diastolicBP;
+
+    @Min(value = 30)
+    @Max(value = 250)
+    private Integer heartRate;
 
     // --- Respiratory ---
-    private Integer respirationRate; // breaths per minute
-    private Integer spo2;            // Oxygen saturation (e.g., 98 for 98%)
+    @Min(value = 0)
+    @Max(value = 100)
+    private Integer respirationRate;
+
+    @Min(value = 0)
+    @Max(value = 100, message = "Oxygen saturation cannot exceed 100%")
+    private Integer spo2;
 
     // --- Body Metrics ---
-    private Double temperature;      // Changed from Boolean to Double (e.g., 37.5)
-    private Double weight;           // Useful to have (kg)
-    private Double height;           // Useful to have (cm)
-    private Double bmi;              // Body Mass Index (usually a decimal like 22.5)
+    private Double temperature;
+    private Double weight;
+    private Double height;
+    private Double bmi;
 
     @Enumerated(EnumType.STRING)
     private BloodGroup bloodGroup;
 
     @Column(columnDefinition = "TEXT")
-    private String ambulationHistory; // // How the patient moves (walking, wheelchair, etc.)
+    private String ambulationHistory;
 
     private Boolean hasFeverHistory;
 
-    private Double bloodSugar;        // Important for diabetic patients
-    private LocalDateTime recordedAt; // Timestamp of when the nurse took the vitals
-
+    private Double bloodSugar;
+    private LocalDateTime recordedAt;
 
     @OneToOne
-    @JoinColumn(name = "medical_record-Id")
+    @JoinColumn(name = "medical_record_id") // Changed hyphen to underscore (standard practice)
     private MedicalRecord medicalRecord;
 }
-
-
-
-
-
-
-
-
-
-
-
-
