@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Getter // Jackson needs this!
 @Setter
 public class UserDtoRequest {
+
         @NotBlank(message = "first name is required")
         private String firstName;
         @NotBlank(message = "last name is required")
