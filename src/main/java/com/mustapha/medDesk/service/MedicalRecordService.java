@@ -16,5 +16,3 @@ public interface MedicalRecordService {
     void delete(Long id);
 
 }
-
-
