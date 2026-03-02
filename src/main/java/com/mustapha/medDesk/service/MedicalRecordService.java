@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface MedicalRecordService {
+
     MedicalRecordDtoResponse create(MedicalRecordDtoRequest dto);
     MedicalRecordDtoResponse update(Long id, MedicalRecordDtoRequest dto);
     Page<MedicalRecordDtoResponse> getAll(int page, int size);
     MedicalRecordDtoResponse getById(Long id);
     void delete(Long id);
+
 }
 
 
