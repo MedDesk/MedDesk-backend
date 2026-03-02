@@ -92,4 +92,5 @@ public class AppointmentController {
     public ResponseEntity<List<DayScheduleResponse>> getWeeklyAvailability() {
         return ResponseEntity.ok(appointmentService.getWeeklyAvailability());
     }
+
 }

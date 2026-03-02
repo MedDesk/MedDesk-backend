@@ -41,4 +41,5 @@ public class AuthController {
         response.setPath(http.getRequestURI());
         return ResponseEntity.ok(response);
     }
+
 }
