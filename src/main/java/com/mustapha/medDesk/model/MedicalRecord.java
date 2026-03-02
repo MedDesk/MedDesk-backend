@@ -8,7 +8,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "medicalRecords")
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,15 +16,16 @@ public class MedicalRecord extends BaseEntity {
 
     // we can have to add patient but we  don't have too becuse we have aleady the relationship between the appointmet that include the patient
 
-    /*
-    @OneToMany
-    @JoinColumn(name = "nurse_id", nullable = false)
-    private Nurse nurse;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nurse_id", nullable = false)
+    private Staff nurse;
+
+  /*
     @OneToMany(mappedBy = "nurse")
 private List<MedicalRecord> medicalRecords;
-
 */
+
     // doctor
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
@@ -38,6 +38,6 @@ private List<MedicalRecord> medicalRecords;
     /*
     so in the vitals we have to put the id of the medicalRecord
      */
-//    @OneToOne(mappedBy = "medicalRecord")
-//    private Vital vital;
+    @OneToOne(mappedBy = "medicalRecord")
+    private Vital vital;
 }
