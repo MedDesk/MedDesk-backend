@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class RegisterDtoRequest {
     @NotBlank(message = "First name is required")
     private String firstName;
