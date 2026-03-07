@@ -93,4 +93,19 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getWeeklyAvailability());
     }
 
+
+    @PatchMapping("/{id}/availability")
+    public ResponseEntity<Void> updateAvailability(
+            @PathVariable Long id,
+            @RequestParam boolean available) {
+        /*
+        TOGGLING SLOT AVAILABILITY
+        This endpoint updates the status of an existing appointment.
+        If 'available' is true -> Status becomes CANCELED (Slot opens up)
+        If 'available' is false -> Status becomes SCHEDULED (Slot is blocked)
+        */
+        appointmentService.updateAvailability(id, available);
+        return ResponseEntity.ok().build();
+    }
+
 }
