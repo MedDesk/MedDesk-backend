@@ -20,4 +20,6 @@ public interface AppointmentService {
 
     List<AppointmentSlotResponse> getSlotsByDate(LocalDate date);
     List<DayScheduleResponse>  getWeeklyAvailability(); // return all days and appointments
+
+    void updateAvailability(Long appointmentId, boolean available);
 }
