@@ -20,4 +20,8 @@ public interface AppointmentReposiotry extends JpaRepository<Appointment, Long> 
     );
 
     boolean existsByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(@NotNull(message = "Appointment date is required") LocalDate appointmentDate, LocalTime slotStart, LocalTime slotEnd);
+
+    Optional<Appointment> findByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(
+            LocalDate date, LocalTime start, LocalTime end
+    );
 }
