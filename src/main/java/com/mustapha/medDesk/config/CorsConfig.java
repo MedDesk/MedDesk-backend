@@ -23,7 +23,8 @@ public class CorsConfig {
         /* Define authorized origins to permit local development servers */
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
-                "http://localhost:4200"
+                "http://localhost:4200",
+                "http://localhost:5173" // react front
         ));
 
         /* Enable standard and custom HTTP methods required for RESTful APIs */
