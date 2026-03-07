@@ -4,6 +4,7 @@ import com.mustapha.medDesk.dto.request.appointment.AppointmentDtoRequest;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentDtoResponse;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentSlotResponse;
 import com.mustapha.medDesk.dto.response.Appointment.DayScheduleResponse;
+import com.mustapha.medDesk.enums.AppointmentStatus;
 import com.mustapha.medDesk.enums.DayOfWeek;
 import com.mustapha.medDesk.exception.ResourceNotFoundException;
 import com.mustapha.medDesk.exception.ValidationException;
@@ -19,11 +20,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -122,6 +125,20 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public void updateAvailability(Long appointmentId, boolean available) {
+        Appointment appointment = appointmentReposiotry.findById(appointmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
+
+        // If 'available' is true, we set status to CANCELED so it shows as open in the UI
+        if (available) {
+            appointment.setAppointmentStatus(AppointmentStatus.CANCELED);
+        } else {
+            appointment.setAppointmentStatus(AppointmentStatus.SCHEDULED);
+        }
+        appointmentReposiotry.save(appointment);
+    }
+
+    @Override
     public Page<AppointmentDtoResponse> findAll(int page, int size) {
 
         return appointmentReposiotry.findAll(PageRequest.of(page, size))
@@ -148,11 +165,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     // This is the responsible to return the all available or not available in certain date
     @Override
     public List<AppointmentSlotResponse> getSlotsByDate(LocalDate date) {
-
         DayOfWeek customDay = DayOfWeek.valueOf(date.getDayOfWeek().name());
-        WorkingHours hours = workingHoursRepository.findByDayOfWeek(customDay)
-                .orElse(null);
-
+        WorkingHours hours = workingHoursRepository.findByDayOfWeek(customDay).orElse(null);
         if (hours == null) return new ArrayList<>();
 
         List<AppointmentSlotResponse> allSlots = new ArrayList<>();
@@ -160,15 +174,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         while (!current.isAfter(hours.getEndTime().minusMinutes(30))) {
             LocalTime next = current.plusMinutes(30);
+            Optional<Appointment> appointment = appointmentReposiotry
+                    .findByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(date, current, next);
 
-            boolean isBooked = appointmentReposiotry.existsByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(
-                    date, current, next
-            );
+            // A slot is available if no appointment exists OR it is CANCELED
+            boolean isSlotAvailable = appointment.isEmpty() ||
+                    appointment.get().getAppointmentStatus() == AppointmentStatus.CANCELED;
 
             allSlots.add(AppointmentSlotResponse.builder()
                     .startTime(current)
                     .endTime(next)
-                    .isAvailable(!isBooked)
+                    .isAvailable(isSlotAvailable)
+                    .appointmentId(appointment.map(Appointment::getId).orElse(null))
+                    .status(appointment.map(app -> app.getAppointmentStatus().name()).orElse(null))
                     .build());
 
             current = next;
@@ -178,47 +196,37 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
 
-
-
     // method responsible to return all days and available and unVailable appointments
     @Override
     public List<DayScheduleResponse> getWeeklyAvailability() {
-
         List<WorkingHours> allWorkingHours = workingHoursRepository.findAll();
         List<DayScheduleResponse> weeklySchedule = new ArrayList<>();
         LocalDate today = LocalDate.now();
 
         for (WorkingHours hours : allWorkingHours) {
-
             DayOfWeek customDay = hours.getDayOfWeek();
             java.time.DayOfWeek targetDay = java.time.DayOfWeek.valueOf(customDay.name());
-
             LocalDate nextOccurence = today;
-
-            /* it's important to understand
-             * Builds the weekly schedule by converting working day templates
-             * into real upcoming dates, generating 30-minute slots,
-             * and marking each slot as available or booked.
-             */
-
-            while (nextOccurence.getDayOfWeek() != targetDay) {
-                nextOccurence = nextOccurence.plusDays(1);
-            }
+            while (nextOccurence.getDayOfWeek() != targetDay) { nextOccurence = nextOccurence.plusDays(1); }
 
             List<AppointmentSlotResponse> slotsForDay = new ArrayList<>();
             LocalTime current = hours.getStartTime();
 
             while (!current.isAfter(hours.getEndTime().minusMinutes(30))) {
                 LocalTime next = current.plusMinutes(30);
+                Optional<Appointment> appointment = appointmentReposiotry
+                        .findByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(nextOccurence, current, next);
 
-                boolean booked = appointmentReposiotry.existsByAppointmentDateAndScheduleTimeStartAndScheduleTimeEnd(
-                        nextOccurence, current, next
-                );
+                // IMPORTANT: Calculate availability based on existence + status
+                boolean isSlotAvailable = appointment.isEmpty() ||
+                        appointment.get().getAppointmentStatus() == AppointmentStatus.CANCELED;
 
                 slotsForDay.add(AppointmentSlotResponse.builder()
                         .startTime(current)
                         .endTime(next)
-                        .isAvailable(!booked)
+                        .isAvailable(isSlotAvailable)
+                        .appointmentId(appointment.map(Appointment::getId).orElse(null))
+                        .status(appointment.map(app -> app.getAppointmentStatus().name()).orElse(null))
                         .build());
 
                 current = next;
@@ -230,7 +238,9 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .slots(slotsForDay)
                     .build());
         }
-
         return weeklySchedule;
     }
+
+
+
 }
