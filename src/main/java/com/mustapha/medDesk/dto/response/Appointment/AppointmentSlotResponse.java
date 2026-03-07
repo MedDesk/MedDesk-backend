@@ -12,4 +12,6 @@ public class AppointmentSlotResponse {
     private LocalTime startTime;
     private LocalTime endTime;
     private boolean isAvailable;
+    private Long appointmentId;
+    private String status;
 }
