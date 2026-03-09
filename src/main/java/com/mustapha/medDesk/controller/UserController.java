@@ -43,6 +43,7 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<ApiResponse<Page<UserDtoResponse>>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -60,6 +61,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    // the the those role or the Id in the url is my own
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN') or #id == authentication.principal.id")
     public ResponseEntity<ApiResponse<UserDtoResponse>> getUserById(
             @PathVariable Long id,
             HttpServletRequest request) {
@@ -76,6 +79,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN') or #id == authentication.principal.id")
     public ResponseEntity<ApiResponse<UserDtoResponse>> updateUser(
             @PathVariable Long id,
             @RequestBody UserUpdateRequest requestBody,
@@ -93,6 +97,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<ApiResponse<Void>> deleteUser(
             @PathVariable Long id,
             HttpServletRequest request) {
