@@ -29,37 +29,24 @@ public class SecurityConfig {
             CorsConfigurationSource corsConfigurationSource) throws Exception {
 
         http
-                // Disable CSRF (Stateless APIs don't need it)
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // Enable CORS using your defined source
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
-                //  Set Authorization Rules
-                // 3. Allow EVERYTHING
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        // allow auth endpoints
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+
+                        // all other endpoints require authentication
+                        .anyRequest().authenticated()
                 )
 
-//                .authorizeHttpRequests(auth -> auth
-//                        // Allow anyone to attempt login or registration
-//                        .requestMatchers("/api/v1/auth/**").permitAll()
-//                        // (Optional) Allow Swagger/OpenAPI documentation if you use it
-//                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-//
-//                        // Everything else MUST be authenticated
-//                        .anyRequest().authenticated()
-//                )
-
-                //Set Session Management to STATELESS (No Cookies)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // Connect my Authentication Provider (from ApplicationConfig)
                 .authenticationProvider(authenticationProvider)
 
-                // Add the JWT Filter BEFORE the standard UsernamePassword filter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
