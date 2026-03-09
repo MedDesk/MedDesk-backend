@@ -1,33 +1,24 @@
 package com.mustapha.medDesk.dto.response.dashboard;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import java.util.Map;
+import java.util.List;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter @Setter @Builder @AllArgsConstructor @NoArgsConstructor
 public class DashboardStatisticsResponse {
+    // Top Row Stats
+    private long totalPatients;
+    private long totalDoctors;
+    private long appointmentsToday;
+    private long totalMedicalRecords;
 
-    private long numberOfDoctors;
-    private long numberOfPatients;
-    private long numberOfStaff;
-    private long numberOfMedicalRecords;
-    private long numberOfAppointments;
-    private long numberOfCompletedAppointments;
-    private long numberOfCancelledAppointments;
-    private long numberOfUsers;
+    // Appointment Breakdown (For Pie Charts)
+    private Map<String, Long> appointmentStatusBreakdown;
 
-    public DashboardStatisticsResponse(long numberOfDoctors, long numberOfPatients, long numberOfAppointments, long numberOfUsers) {
-        this(
-                numberOfDoctors,
-                numberOfPatients,
-                0,
-                0,
-                numberOfAppointments,
-                0,
-                0,
-                numberOfUsers
-        );
-    }
+    // Demographic Breakdown (For Bar Charts)
+    private Map<String, Long> patientGenderBreakdown;
+
+    // Recent Activity Lists (For Dashboard Tables)
+    private List<RecentAppointmentDto> upcomingAppointments;
 }
+
