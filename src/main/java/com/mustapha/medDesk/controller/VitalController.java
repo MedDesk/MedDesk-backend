@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/vitals")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST')")
+@PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN', 'RECEPTIONIST')")
 public class VitalController {
 
 
