@@ -4,6 +4,7 @@ import com.mustapha.medDesk.dto.request.MedicalRecord.MedicalRecordDtoRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
 import com.mustapha.medDesk.dto.response.MedicalRecord.MedicalRecordDtoResponse;
 import com.mustapha.medDesk.service.MedicalRecordService;
+import com.mustapha.medDesk.service.impl.AppointmentServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/medical-records")
 @RequiredArgsConstructor
 public class MedicalRecordController {
 
     private final MedicalRecordService medicalRecordService;
+    private final AppointmentServiceImpl appointmentServiceImpl;
 
     @PostMapping
     public ResponseEntity<ApiResponse<MedicalRecordDtoResponse>> create(
@@ -79,5 +83,17 @@ public class MedicalRecordController {
         response.setStatus(HttpStatus.OK.value());
         response.setPath(http.getRequestURI());
         return ResponseEntity.ok(response);
+    }
+
+
+    // get all MedcalREcords for single patient
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<ApiResponse<List<MedicalRecordDtoResponse>>> getAllByPatientId(
+            @PathVariable Long patientId,
+            HttpServletRequest http
+    ){
+        List<MedicalRecordDtoResponse> history = medicalRecordService.getPatientHistory(patientId);
+        return ResponseEntity.ok(ApiResponse.success("Patient history fetched successfully", history));
+
     }
 }
