@@ -2,6 +2,7 @@ package com.mustapha.medDesk.service.impl;
 
 import com.mustapha.medDesk.dto.request.staff.StaffDtoRequest;
 import com.mustapha.medDesk.dto.response.Staff.StaffDtoResponse;
+import com.mustapha.medDesk.enums.StaffType;
 import com.mustapha.medDesk.enums.UserRole;
 import com.mustapha.medDesk.exception.ResourceNotFoundException;
 import com.mustapha.medDesk.exception.ValidationException;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -74,4 +76,14 @@ public class StaffServiceImpl implements StaffService {
         Staff staff = staffRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("user not found"));
         this.staffRepository.delete(staff);
     }
+
+    // get all staff by the role
+
+    @Override
+    public List<StaffDtoResponse> getAllSTaffByType(StaffType staffType) {
+        return staffRepository.findByStaffType(staffType).stream()
+                .map(staff -> staffMapper.toDto(staff))
+                .toList();
+    }
+
 }

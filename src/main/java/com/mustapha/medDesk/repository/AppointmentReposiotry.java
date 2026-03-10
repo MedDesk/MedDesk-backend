@@ -32,4 +32,7 @@ public interface AppointmentReposiotry extends JpaRepository<Appointment, Long> 
     long countByAppointmentStatus(AppointmentStatus status);
     long countByAppointmentDate(LocalDate date);
     List<Appointment> findTop5ByOrderByAppointmentDateDescScheduleTimeStartDesc();
+
+    List<Appointment>findByPatientId(Long patientId);
+
 }

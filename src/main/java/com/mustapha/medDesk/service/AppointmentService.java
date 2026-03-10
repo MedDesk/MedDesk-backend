@@ -4,6 +4,7 @@ import com.mustapha.medDesk.dto.request.appointment.AppointmentDtoRequest;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentDtoResponse;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentSlotResponse;
 import com.mustapha.medDesk.dto.response.Appointment.DayScheduleResponse;
+import com.mustapha.medDesk.dto.response.patient.PatientDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,7 @@ public interface AppointmentService {
     List<DayScheduleResponse>  getWeeklyAvailability(); // return all days and appointments
 
     void updateAvailability(Long appointmentId, boolean available);
+
+    List<AppointmentDtoResponse> getByPatientId(Long patientId); // get all appointment of patient by it's id
+
 }

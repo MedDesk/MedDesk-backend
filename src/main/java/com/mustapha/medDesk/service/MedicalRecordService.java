@@ -6,6 +6,8 @@ import com.mustapha.medDesk.model.MedicalRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface MedicalRecordService {
 
@@ -15,4 +17,6 @@ public interface MedicalRecordService {
     MedicalRecordDtoResponse getById(Long id);
     void delete(Long id);
 
+    // get all medical records by patient id
+    List<MedicalRecordDtoResponse> getPatientHistory(Long patientId);
 }

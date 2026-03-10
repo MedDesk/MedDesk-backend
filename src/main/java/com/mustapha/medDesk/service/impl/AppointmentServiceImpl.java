@@ -4,6 +4,7 @@ import com.mustapha.medDesk.dto.request.appointment.AppointmentDtoRequest;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentDtoResponse;
 import com.mustapha.medDesk.dto.response.Appointment.AppointmentSlotResponse;
 import com.mustapha.medDesk.dto.response.Appointment.DayScheduleResponse;
+import com.mustapha.medDesk.dto.response.patient.PatientDtoResponse;
 import com.mustapha.medDesk.enums.AppointmentStatus;
 import com.mustapha.medDesk.enums.DayOfWeek;
 import com.mustapha.medDesk.exception.ResourceNotFoundException;
@@ -20,13 +21,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -239,6 +240,19 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .build());
         }
         return weeklySchedule;
+    }
+
+
+
+    @Override
+    public List<AppointmentDtoResponse> getByPatientId(Long patientId) {
+        // Fetch appointments from DB
+        List<Appointment> appointments = appointmentReposiotry.findByPatientId(patientId);
+
+        // Convert to DTOs
+        return appointments.stream()
+                .map(appointment -> appointmentMapper.toDto(appointment)) // Use your existing mapper method
+                .collect(Collectors.toList());
     }
 
 

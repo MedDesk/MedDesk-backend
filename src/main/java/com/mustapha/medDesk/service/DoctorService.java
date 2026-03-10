@@ -12,4 +12,6 @@ public interface DoctorService {
     DoctorDtoResponse findById(Long id);
     Page<DoctorDtoResponse>getAll(int page, int size);
     void delete(Long id);
+
+
 }

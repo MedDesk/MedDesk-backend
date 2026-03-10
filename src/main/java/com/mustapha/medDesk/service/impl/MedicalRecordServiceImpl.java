@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional // Defaults all methods to transactional
@@ -123,5 +125,14 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         if (!staffRepository.existsById(dto.getNurseId())) {
             throw new ResourceNotFoundException("Nurse (Staff) not found");
         }
+    }
+
+    @Override
+    public List<MedicalRecordDtoResponse> getPatientHistory(Long patientId) {
+        List<MedicalRecord>medicalRecordList = medicalRecordRepository.findAllByPatientId(patientId);
+
+        return medicalRecordList.stream().map(
+                medicalRecord -> medicalRecordMapper.toDto(medicalRecord)
+        ).toList();
     }
 }
