@@ -53,7 +53,7 @@ public class PatientDtoRequest {
 
     private String address;
     private String cin;
-
+    private UserRole role = UserRole.PATIENT;
     // patient specific info
     @NotNull(message = "Patient type is required")
     private PatientType patientType;
