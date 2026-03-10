@@ -108,4 +108,19 @@ public class AppointmentController {
         return ResponseEntity.ok().build();
     }
 
+
+
+
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<List<AppointmentDtoResponse>> getByPatientId(@PathVariable Long patientId) {
+        /*
+        FETCHING PATIENT HISTORY
+        This returns all appointments for a specific patient.
+        Ideal for showing a patient their own booking history.
+        */
+        List<AppointmentDtoResponse> history = appointmentService.getByPatientId(patientId);
+        return ResponseEntity.ok(history);
+    }
+
+
 }
