@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/workingHours")
-@PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST')")
+@PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN', 'RECEPTIONIST')")
 public class WorkingHoursController {
 
     private final WorkingHoursService workingHoursService;
