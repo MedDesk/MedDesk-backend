@@ -4,6 +4,7 @@ import com.mustapha.medDesk.dto.request.staff.StaffDtoRequest;
 import com.mustapha.medDesk.dto.request.user.UserDtoRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
 import com.mustapha.medDesk.dto.response.Staff.StaffDtoResponse;
+import com.mustapha.medDesk.enums.StaffType;
 import com.mustapha.medDesk.mapper.StaffMapper;
 import com.mustapha.medDesk.service.StaffService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
 import javax.xml.stream.events.EntityReference;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -86,4 +88,18 @@ public class StaffController {
          return ResponseEntity.ok(response);
 
     }
+
+
+    @GetMapping("/nurses")
+    public ResponseEntity<ApiResponse<List<StaffDtoResponse>>>getAllNurses(
+            HttpServletRequest http
+    ){
+        List<StaffDtoResponse>staffDtoResponsesList = staffService.getAllSTaffByType(StaffType.NURSE);
+        ApiResponse<List<StaffDtoResponse>>response = ApiResponse.success("nurses fetched successfully", staffDtoResponsesList);
+        response.setPath(http.getRequestURI());
+        response.setStatus(HttpStatus.OK.value());
+        return ResponseEntity.ok(response);
+    }
+
+
 }
