@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Data
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -47,20 +46,28 @@ public class UserServiceImpl implements UserService {
 
 
 // update partiell the user data
-    @Override
-    public UserDtoResponse update(Long id, UserUpdateRequest request) {
-        if(id == 1) throw  new ValidationException("you cannot update the main admin");
+@Override
+public UserDtoResponse update(Long id, UserUpdateRequest request) {
+    if(id == 1) throw new ValidationException("you cannot update the main admin");
 
-        // find user
-        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found"));
+    // 1. Find user
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        // update basic user data we are not gonna to use manual method we gonna use mapstrcut integred method
-        userMapper.updateUserFromDto(request, user);
-
-        userRepository.save(user);
-        return userMapper.toDto(user);
-
+    // 2. Handle Password manually (if provided)
+    // We do this because MapStruct would map the plain text password
+    if (request.getPassword() != null && !request.getPassword().isBlank()) {
+        user.setPassword(PasswordUtil.hash(request.getPassword()));
     }
+
+    // 3. Map other fields (MapStruct will ignore nulls in request)
+    userMapper.updateUserFromDto(request, user);
+
+    // 4. Save
+    userRepository.save(user);
+    return userMapper.toDto(user);
+}
+
 
     @Override
     public void delete(Long id) {
