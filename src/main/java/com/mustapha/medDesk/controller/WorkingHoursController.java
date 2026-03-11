@@ -71,6 +71,7 @@ public class WorkingHoursController {
 
 
     @GetMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<List<WorkingHoursDtoResponse>>> getAll(
             HttpServletRequest http
     ){
