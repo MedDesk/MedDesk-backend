@@ -18,5 +18,6 @@ public interface PatientMapper {
     Patient toEntity(PatientDtoRequest dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "password", ignore = true)
     void updatePatientForm(PatientDtoRequest request, @MappingTarget Patient patient);
 }
