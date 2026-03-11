@@ -25,29 +25,29 @@ import java.util.List;
 public class PatientDtoRequest {
 
     // general info
-    @NotBlank(message = "First name is required")
+//    @NotBlank(message = "First name is required")
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
+//    @NotBlank(message = "Last name is required")
     private String lastName;
 
-    @NotBlank(message = "Username is required")
+//    @NotBlank(message = "Username is required")
     private String username;
 
     @Email
     private String email;
 
-    @NotBlank(message = "Password must not be empty")
+//    @NotBlank(message = "Password must not be empty")
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
     private String phone;
     private String profileImage;
 
-    @NotNull(message = "Gender is required")
+//    @NotNull(message = "Gender is required")
     private Gender gender;
 
-    @NotNull(message = "Birth date is required")
+//    @NotNull(message = "Birth date is required")
     @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
@@ -55,7 +55,7 @@ public class PatientDtoRequest {
     private String cin;
     private UserRole role = UserRole.PATIENT;
     // patient specific info
-    @NotNull(message = "Patient type is required")
+//    @NotNull(message = "Patient type is required")
     private PatientType patientType;
     private String cnss;
     private MaritalStatus maritalStatus = MaritalStatus.UNASSIGNED;
