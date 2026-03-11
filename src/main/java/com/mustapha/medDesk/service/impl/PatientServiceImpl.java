@@ -43,11 +43,23 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDtoResponse update(Long id, PatientDtoRequest dto) {
+        // 1. Find the patient
         Patient patient = patientRepository.findById(id).orElseThrow(
                 ()-> new ResourceNotFoundException("Patient not found")
         );
+
+        // 2. Map all fields EXCEPT password (password is ignored in the mapper)
         patientMapper.updatePatientForm(dto, patient);
+
+        // 3. Handle Password manually: Check, Hash, and Set
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            // Only hash and update if the user actually sent a new password
+            patient.setPassword(PasswordUtil.hash(dto.getPassword()));
+        }
+
+        // 4. Save the updated entity
         patientRepository.save(patient);
+
         return patientMapper.toDto(patient);
     }
 
