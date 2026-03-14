@@ -2,6 +2,7 @@ package com.mustapha.medDesk.service.impl;
 
 import com.mustapha.medDesk.dto.request.workingHour.WorkingHoursDtoRequest;
 import com.mustapha.medDesk.dto.response.workingHours.WorkingHoursDtoResponse;
+import com.mustapha.medDesk.enums.DayOfWeek;
 import com.mustapha.medDesk.exception.ResourceNotFoundException;
 import com.mustapha.medDesk.exception.ValidationException;
 import com.mustapha.medDesk.mapper.WorkingHoursMapper;
@@ -41,13 +42,13 @@ class WorkingHoursServiceImplTest {
     void setUp() {
         // prepare data before each test
         dtoRequest = new WorkingHoursDtoRequest();
-        dtoRequest.setDayOfWeek("MONDAY");
+        dtoRequest.setDayOfWeek(DayOfWeek.MONDAY);
         dtoRequest.setStartTime(LocalTime.of(9,0));
         dtoRequest.setEndTime(LocalTime.of(17,0));
 
         workingHours = new WorkingHours();
         workingHours.setId(1L);
-        workingHours.setDayOfWeek("MONDAY");
+        workingHours.setDayOfWeek(DayOfWeek.MONDAY);
         workingHours.setStartTime(LocalTime.of(9,0));
         workingHours.setEndTime(LocalTime.of(17,0));
 
@@ -133,9 +134,9 @@ class WorkingHoursServiceImplTest {
         // arrange: another day exists in repository
         WorkingHours anotherDay = new WorkingHours();
         anotherDay.setId(2L);
-        anotherDay.setDayOfWeek("TUESDAY");
+        anotherDay.setDayOfWeek(DayOfWeek.FRIDAY);
 
-        dtoRequest.setDayOfWeek("TUESDAY");
+        dtoRequest.setDayOfWeek(DayOfWeek.FRIDAY);
 
         when(workingHoursRepository.findById(any())).thenReturn(Optional.of(workingHours));
         when(workingHoursRepository.findByDayOfWeek(any())).thenReturn(Optional.of(anotherDay));
