@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional // this keeps the dabatabse clean after tests
-class MedicalRecordControllerIT {
+class MedicalRecordControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
