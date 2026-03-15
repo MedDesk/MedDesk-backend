@@ -31,6 +31,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AppointmentServiceImplTest {
 
+
     @Mock
     private AppointmentReposiotry appointmentReposiotry;
     @Mock
