@@ -66,6 +66,7 @@ class StaffRepositoryTest {
         assertEquals("Joy", found.get().getFirstName());
     }
 
+
     @Test
     void existsByIdAndStaffType_ShouldReturnTrue() {
         /**
