@@ -88,7 +88,6 @@ class UserRepositoryTest {
 
         assertTrue(exists);
     }
-
     @Test
     void existsByEmail_ShouldReturnFalse_WhenEmailIsNew() {
         /**
@@ -98,4 +97,5 @@ class UserRepositoryTest {
 
         assertFalse(exists);
     }
+
 }
