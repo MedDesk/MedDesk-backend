@@ -27,6 +27,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class MedicalRecordServiceImplTest {
 
+
     @Mock
     private MedicalRecordRepository medicalRecordRepository;
     @Mock
