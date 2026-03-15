@@ -60,6 +60,7 @@ class AuthServiceImplTest {
         user.setUsername("mustapha_001");
     }
 
+
     @Test
     void register() {
 
