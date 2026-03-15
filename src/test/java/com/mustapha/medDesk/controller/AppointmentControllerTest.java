@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional // this roll back dabatabse after test
-class AppointmentControllerIT {
+class AppointmentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
