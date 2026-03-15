@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional // clean dabatabse after every test
-class AuthControllerIT {
+class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
