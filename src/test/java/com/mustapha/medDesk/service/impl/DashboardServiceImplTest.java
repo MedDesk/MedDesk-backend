@@ -88,7 +88,6 @@ class DashboardServiceImplTest {
         //  verify appointments status breakdown
         assertEquals(AppointmentStatus.values().length, response.getAppointmentStatusBreakdown().size());
 
-
         List<RecentAppointmentDto> recent = response.getUpcomingAppointments();
         assertEquals(1, recent.size());
         assertEquals("Mustapha Moutaki", recent.get(0).getPatientName());
