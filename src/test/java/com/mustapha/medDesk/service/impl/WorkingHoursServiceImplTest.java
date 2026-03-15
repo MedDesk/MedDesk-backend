@@ -129,6 +129,7 @@ class WorkingHoursServiceImplTest {
         assertThrows(ValidationException.class, () -> workingHoursService.update(1L, dtoRequest));
     }
 
+
     @Test
     void update_ShouldThrow_WhenDayAlreadyExists() {
         // arrange: another day exists in repository
