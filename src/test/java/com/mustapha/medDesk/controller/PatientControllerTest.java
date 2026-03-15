@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @Transactional // we roll back dabatabse after test to stay clean
 class PatientControllerTest {
 
+
     @Autowired
     private MockMvc mockMvc;
 
