@@ -31,6 +31,7 @@ class DoctorRepositoryTest {
         doctor.setUsername("mustapha_001");
         doctor.setPassword("passworrd");
 
+
         // doctor fields
         doctor.setSpecialist(DoctorSpeacialist.CARDIOLOGY);
         doctor.setLicenseNumber("DOC12345");
