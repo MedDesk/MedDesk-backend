@@ -3,7 +3,7 @@ name: MedDesk CI/CD Pipeline
 on:
   push:
   pull_request:
-    branches: ["master"]
+    branches: ["master"] #the main branch
 
 jobs:
 
