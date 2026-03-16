@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s # how often prometheus asks the app for numbers
+
+scrape_configs:
+  - job_name: 'meddesk-app-monitoring'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      # 'app' is the name of your service in docker-compose.yml
+      - targets: ['app:8080']

@@ -33,3 +33,30 @@ jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
   access-token-expiration: 3600000 # 1 hour in ms
   refresh-token-expiration: 604800000 # 7 days
+
+
+# --- MONITORING AND OBSERVABILITY ---
+
+management:
+  metrics:
+    tags:
+      application: meddesk-app
+  endpoints:
+    web:
+      exposure:
+        # we expose health and prometheus so the monitors can see our data
+        include: "health,info,prometheus"
+  tracing:
+    sampling:
+      # 1.0 means we capture every single request (100%)
+      probability: 1.0
+  zipkin:
+    tracing:
+      # this must match the service name 'zipkin' in docker-compose
+      endpoint: "http://zipkin:9411/api/v2/spans"
+
+logging:
+  pattern:
+    # this line adds [appName, traceId, spanId] to your logs
+    # very useful to find which log belongs to which request in Zipkin
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
