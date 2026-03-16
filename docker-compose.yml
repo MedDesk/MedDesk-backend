@@ -66,6 +66,47 @@ services:
     networks:
       - meddesk-network
 
+
+
+  # --- MONITORING SECTION ---
+
+  # Zipkin: This is where we see the "Traces" (paths of requests)
+  # it helps to see which service or repository is slow
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: meddesk-zipkin
+    restart: unless-stopped
+    ports:
+      - "9411:9411"
+    networks:
+      - meddesk-network
+
+  # Prometheus: This stores "Metrics" (numbers like CPU or how many people login)
+  # it needs a prometheus.yml file to know where to find our app
+  prometheus:
+    image: prom/prometheus
+    container_name: meddesk-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - meddesk-network
+
+  # Grafana: This is the dashboard to see beautiful graphs
+  # login is admin / admin
+  grafana:
+    image: grafana/grafana
+    container_name: meddesk-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - meddesk-network
+
 volumes:
   postgres_data:
   pgadmin_data:
