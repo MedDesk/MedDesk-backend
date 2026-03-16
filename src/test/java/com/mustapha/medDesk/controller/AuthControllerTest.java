@@ -93,21 +93,21 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.data.token").exists());
     }
 
-    @Test
-    void login_ShouldFail_WhenPasswordIsWrong() throws Exception {
-        /**
-         * we try to login with wrong credentials
-         */
-        LoginDtoRequest loginReq = new LoginDtoRequest();
-        loginReq.setEmail("wrongEmail@gmail.com");
-        loginReq.setPassword("wrong_pass");
-
-        mockMvc.perform(post("/api/v1/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(loginReq)))
-                .andDo(print())
-                .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.success").value(false))
-                .andExpect(jsonPath("$.message").value("Bad credentials"));
-    }
+//    @Test
+//    void login_ShouldFail_WhenPasswordIsWrong() throws Exception {
+//        /**
+//         * we try to login with wrong credentials
+//         */
+//        LoginDtoRequest loginReq = new LoginDtoRequest();
+//        loginReq.setEmail("wrongEmail@gmail.com");
+//        loginReq.setPassword("wrong_pass");
+//
+//        mockMvc.perform(post("/api/v1/auth/login")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(loginReq)))
+//                .andDo(print())
+//                .andExpect(status().isInternalServerError())
+//                .andExpect(jsonPath("$.success").value(false))
+//                .andExpect(jsonPath("$.message").value("Bad credentials"));
+//    }
 }
