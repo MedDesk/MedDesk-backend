@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/workingHours/**").permitAll()
                         .requestMatchers("/api/v1/appointments/weekly-availability/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
 
                         // all other endpoints require authentication
                         .anyRequest().authenticated()
