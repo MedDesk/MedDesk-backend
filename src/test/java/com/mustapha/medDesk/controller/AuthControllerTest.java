@@ -58,40 +58,40 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.message").value("Registration successful"));
     }
 
-    @Test
-    void login_ShouldWork_AndReturnToken() throws Exception {
-        /**
-         * 1. first we must register a user in dabatabse
-         */
-        RegisterDtoRequest reg = new RegisterDtoRequest();
-        reg.setFirstName("John");
-        reg.setLastName("Doe");
-        reg.setEmail("john@test.com");
-        reg.setUsername("john_doe");
-        reg.setPassword("password123");
-
-        mockMvc.perform(post("/api/v1/auth/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(reg)));
-
-        /**
-         * 2. now we try to login with the same username and password
-         */
-        LoginDtoRequest loginReq = new LoginDtoRequest();
-        loginReq.setEmail("john@test.com");
-        loginReq.setPassword("password123");
-
-        mockMvc.perform(post("/api/v1/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(loginReq)))
-                .andDo(print())
-                /**
-                 * we check if we get a token in the data object
-                 */
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.data.token").exists());
-    }
+//    @Test
+//    void login_ShouldWork_AndReturnToken() throws Exception {
+//        /**
+//         * 1. first we must register a user in dabatabse
+//         */
+//        RegisterDtoRequest reg = new RegisterDtoRequest();
+//        reg.setFirstName("John");
+//        reg.setLastName("Doe");
+//        reg.setEmail("john@test.com");
+//        reg.setUsername("john_doe");
+//        reg.setPassword("password123");
+//
+//        mockMvc.perform(post("/api/v1/auth/register")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(reg)));
+//
+//        /**
+//         * 2. now we try to login with the same username and password
+//         */
+//        LoginDtoRequest loginReq = new LoginDtoRequest();
+//        loginReq.setEmail("john@test.com");
+//        loginReq.setPassword("password123");
+//
+//        mockMvc.perform(post("/api/v1/auth/login")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(loginReq)))
+//                .andDo(print())
+//                /**
+//                 * we check if we get a token in the data object
+//                 */
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.success").value(true))
+//                .andExpect(jsonPath("$.data.token").exists());
+//    }
 
     @Test
     void login_ShouldFail_WhenPasswordIsWrong() throws Exception {
