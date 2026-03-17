@@ -71,6 +71,9 @@ public UserDtoResponse update(Long id, UserUpdateRequest request) {
 
     @Override
     public void delete(Long id) {
+        if(id ==1){
+            throw new ValidationException("you cannot remove the super admin");
+        }
         User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("user not found"));
             this.userRepository.delete(user);
     }
@@ -86,9 +89,7 @@ public UserDtoResponse update(Long id, UserUpdateRequest request) {
 
     @Override
     public UserDtoResponse getById(Long id) {
-        if(id ==1){
-            throw new ValidationException("you cannot remove the super admin");
-        }
+
          User  user =userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(" user not found"));
 
         return userMapper.toDto(user);
