@@ -44,6 +44,7 @@ public class AuthController {
     }
 
 
+    // to refresht the access token
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse<AuthDtoResponse>> refresh(
             @RequestBody RefreshTokenDtoRequest request,
