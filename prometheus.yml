@@ -6,4 +6,4 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
       # 'app' is the name of your service in docker-compose.yml
-      - targets: ['app:8080']
+      - targets: ['meddesk-app:8080']

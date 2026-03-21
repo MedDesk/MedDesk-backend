@@ -3,6 +3,7 @@ package com.mustapha.medDesk.controller;
 
 import com.mustapha.medDesk.dto.request.auth.register.RegisterDtoRequest;
 import com.mustapha.medDesk.dto.request.auth.signup.LoginDtoRequest;
+import com.mustapha.medDesk.dto.request.refreshToken.RefreshTokenDtoRequest;
 import com.mustapha.medDesk.dto.response.ApiResponse;
 
 import com.mustapha.medDesk.dto.response.auth.AuthDtoResponse;
@@ -39,6 +40,22 @@ public class AuthController {
         AuthDtoResponse data = authService.Login(request);
         ApiResponse<AuthDtoResponse> response = ApiResponse.success("Login successful", data);
         response.setPath(http.getRequestURI());
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse<AuthDtoResponse>> refresh(
+            @RequestBody RefreshTokenDtoRequest request,
+            HttpServletRequest http
+    ) {
+        AuthDtoResponse data = authService.refreshToken(request.getRefreshToken());
+
+        ApiResponse<AuthDtoResponse> response =
+                ApiResponse.success("Token refreshed successfully", data);
+
+        response.setPath(http.getRequestURI());
+
         return ResponseEntity.ok(response);
     }
 

@@ -7,4 +7,5 @@ import com.mustapha.medDesk.dto.response.auth.AuthDtoResponse;
 public interface AuthService {
     AuthDtoResponse register(RegisterDtoRequest dto);
     AuthDtoResponse Login(LoginDtoRequest dto);
+    AuthDtoResponse refreshToken(String refreshToken);
 }
