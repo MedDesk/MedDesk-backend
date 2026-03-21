@@ -4,6 +4,7 @@ import com.mustapha.medDesk.dto.request.auth.register.RegisterDtoRequest;
 import com.mustapha.medDesk.dto.request.auth.signup.LoginDtoRequest;
 import com.mustapha.medDesk.mapper.UserMapper;
 import com.mustapha.medDesk.model.User;
+import com.mustapha.medDesk.repository.RefreshTokenRepository;
 import com.mustapha.medDesk.repository.UserRepository;
 import com.mustapha.medDesk.security.JwtService;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,9 @@ class AuthServiceImplTest {
     @Mock
     private UserMapper userMapper;
 
+    @Mock
+    private RefreshTokenRepository refreshTokenRepository;
+
     @InjectMocks
     private AuthServiceImpl authService;
 
@@ -43,7 +47,6 @@ class AuthServiceImplTest {
 
     @BeforeEach
     void setUp(){
-
         registerDtoRequest = new RegisterDtoRequest();
         registerDtoRequest.setFirstName("mustapha");
         registerDtoRequest.setLastName("moutaki");
@@ -60,13 +63,13 @@ class AuthServiceImplTest {
         user.setUsername("mustapha_001");
     }
 
-
     @Test
     void register() {
-
+        // Arrange
         when(userRepository.existsByEmail(any())).thenReturn(false);
         when(userRepository.save(any())).thenReturn(user);
-        when(jwtService.generateAccessToken(any())).thenReturn("fake-jwt-token");
+        when(jwtService.generateAccessToken(any())).thenReturn("fake-access-token");
+        when(jwtService.generateRefreshToken(any())).thenReturn("fake-refresh-token");
 
         // Act
         var response = authService.register(registerDtoRequest);
@@ -75,21 +78,23 @@ class AuthServiceImplTest {
         assertNotNull(response);
         verify(userRepository, times(1)).save(any());
         verify(jwtService, times(1)).generateAccessToken(any());
+        verify(refreshTokenRepository, times(1)).save(any());
     }
+
     @Test
     void login() {
-
         // Arrange
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(user));
-        when(jwtService.generateAccessToken(any())).thenReturn("fake-jwt-token");
+        when(jwtService.generateAccessToken(any())).thenReturn("fake-access-token");
+        when(jwtService.generateRefreshToken(any())).thenReturn("fake-refresh-token");
 
         // Act
         var response = authService.Login(loginDtoRequest);
 
         // Assert
         assertNotNull(response);
-
         verify(authenticationManager, times(1)).authenticate(any());
         verify(jwtService, times(1)).generateAccessToken(any());
+        verify(refreshTokenRepository, times(1)).save(any());
     }
 }
