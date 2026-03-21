@@ -22,5 +22,4 @@ public class RefreshToken {
     private String email;
     private boolean revoked;
     private Date expiryDate;
-
 }
