@@ -59,6 +59,7 @@ public class AuthServiceImpl implements AuthService {
          * we can't use build to set crreateBy becaues is not support inheritence for baseEntity
          * so we can use the superBuilder or set it using setters
          */
+
         user.setCreatedBy("System");
         // Save User
         User savedUser = userRepository.save(user);
